@@ -1,0 +1,138 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "sidebar_nav_page3",
+  "position": {
+    "x": 20,
+    "y": 70,
+    "z": 1000,
+    "height": 630,
+    "width": 140,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PAGES\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "10pt",
+                      "color": "#172033"
+                    }
+                  },
+                  {
+                    "value": "○ Executive Portfolio\n○ Risk Segmentation\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#64748B"
+                    }
+                  },
+                  {
+                    "value": "● Risk Drivers & Hotspots\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9.5pt",
+                      "color": "#1D4ED8"
+                    }
+                  },
+                  {
+                    "value": "○ Borrower Risk Profile\n\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#64748B"
+                    }
+                  },
+                  {
+                    "value": "SCOPE\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "10pt",
+                      "color": "#172033"
+                    }
+                  },
+                  {
+                    "value": "Focus: Risk Drivers & Hotspots\nDrivers: Credit Score × Affordability\nTarget: High-Risk Concentration",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "8.5pt",
+                      "color": "#64748B"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D9E2EC'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

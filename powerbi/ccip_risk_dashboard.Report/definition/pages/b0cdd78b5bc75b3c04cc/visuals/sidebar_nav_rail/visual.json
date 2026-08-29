@@ -1,0 +1,194 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "sidebar_nav_rail",
+  "position": {
+    "x": 10,
+    "y": 85,
+    "z": 8000,
+    "height": 615,
+    "width": 150,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PAGES",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "9pt",
+                      "color": "#94a3b8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● Executive Portfolio\n\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "9.5pt",
+                      "color": "#0f52ba"
+                    }
+                  },
+                  {
+                    "value": "○ Risk Segmentation\n\n",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  },
+                  {
+                    "value": "○ Risk Drivers & Hotspots\n\n",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  },
+                  {
+                    "value": "○ Borrower Risk Profile\n\n",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "────────────",
+                    "textStyle": {
+                      "color": "#e2e8f0"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SCOPE",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "9pt",
+                      "color": "#94a3b8"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Grain: Application",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#64748b"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Population: 307.5K",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#64748b"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Time: Point-in-Time",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#64748b"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Model: CCIP Star Schema",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#64748b"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

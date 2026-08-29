@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "b0cdd78b5bc75b3c04cc",
+    "d9a6843df7fef6bf06eb",
+    "d98ee46fa8f4591b20c1",
+    "page_borrower_risk_profile",
+    "page_tooltip_risk_cell"
+  ],
+  "activePageName": "page_borrower_risk_profile"
+}

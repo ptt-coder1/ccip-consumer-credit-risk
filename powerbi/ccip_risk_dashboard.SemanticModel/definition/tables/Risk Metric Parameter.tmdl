@@ -1,0 +1,49 @@
+table 'Risk Metric Parameter'
+	lineageTag: abaa39a6-6a25-4f8a-ad1f-d39514917cda
+
+	column 'Risk Metric Parameter'
+		lineageTag: e578b734-9fbd-42fa-90eb-daba6d2d1739
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Risk Metric Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Risk Metric Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Risk Metric Parameter Fields'
+		isHidden
+		lineageTag: 285d634b-a374-4369-a0fe-47624a0deb72
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Risk Metric Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Risk Metric Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: a74b7006-1164-4bc2-a9f2-012f745b7ae5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Risk Metric Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Default Rate", NAMEOF('_Measures'[Default Rate %]), 0),
+				    ("Defaulted Loans", NAMEOF('_Measures'[Total Defaults]), 1),
+				    ("Amount at Risk", NAMEOF('_Measures'[Amount at Risk (B)]), 2)
+				}
+
+	annotation PBI_Id = 5d781f45f24e4f5f942ab2179d0b4ed3
+

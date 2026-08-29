@@ -1,0 +1,54 @@
+table 'dw dim_region'
+	lineageTag: 96979dec-6dac-46cb-9dea-3ecdd9b45a7d
+
+	column region_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: fe469aab-3097-4048-baf1-7190a6adf1cb
+		summarizeBy: none
+		sourceColumn: region_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_rating
+		dataType: int64
+		formatString: 0
+		lineageTag: 75832ed8-b0c6-49cb-b67e-d206133a2b50
+		summarizeBy: none
+		sourceColumn: region_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_label
+		dataType: string
+		lineageTag: f3cf9d57-69b0-433d-9738-5ec37079e54e
+		summarizeBy: none
+		sourceColumn: region_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_level
+		dataType: string
+		lineageTag: 94dee607-f32f-4ba7-8976-4316c94c009f
+		summarizeBy: none
+		sourceColumn: risk_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 522fa48c-c817-4769-b2e6-a13709317f87
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw dim_region' = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database("localhost", "ccip_dw"),
+				  #"Navigation 1" = Source{[Schema = "dw", Item = "dim_region"]}[Data]
+				in
+				  #"Navigation 1"
+

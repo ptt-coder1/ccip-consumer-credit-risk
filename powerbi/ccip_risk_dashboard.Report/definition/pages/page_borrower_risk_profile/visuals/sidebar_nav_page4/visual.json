@@ -1,0 +1,153 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "sidebar_nav_page4",
+  "position": {
+    "x": 20,
+    "y": 70,
+    "z": 1000,
+    "height": 630,
+    "width": 140,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "CCIP RISK BI\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "11pt",
+                      "color": "#1E3A8A"
+                    }
+                  },
+                  {
+                    "value": "──────────\n\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#94A3B8"
+                    }
+                  },
+                  {
+                    "value": "○ 01. Executive Portfolio\n\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#64748B"
+                    }
+                  },
+                  {
+                    "value": "○ 02. Risk Segmentation\n\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#64748B"
+                    }
+                  },
+                  {
+                    "value": "○ 03. Risk Drivers & Hotspots\n\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#64748B"
+                    }
+                  },
+                  {
+                    "value": "● 04. Borrower Risk Profile\n\n",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9.5pt",
+                      "color": "#1E3A8A"
+                    }
+                  },
+                  {
+                    "value": "──────────\n",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#94A3B8"
+                    }
+                  },
+                  {
+                    "value": "Scope: RQ1\nGrain: Loan/Customer\nModel: CCIP Star",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "8pt",
+                      "color": "#94A3B8"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D9E2EC'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

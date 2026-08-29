@@ -1,0 +1,64 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "header_page3",
+  "position": {
+    "x": 20,
+    "y": 14,
+    "z": 0,
+    "height": 45,
+    "width": 1240,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "RISK DRIVERS & HOTSPOTS",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "15pt",
+                      "color": "#ffffff"
+                    }
+                  },
+                  {
+                    "value": "   |   Where Credit Risk Concentrates (Score Tier × Debt Burden)",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontStyle": "italic",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "10.5pt",
+                      "color": "#94A3B8"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

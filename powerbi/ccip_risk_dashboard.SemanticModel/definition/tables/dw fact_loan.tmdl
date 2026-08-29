@@ -1,0 +1,206 @@
+table 'dw fact_loan'
+	lineageTag: 2027d719-7972-4f8a-a009-bf4ded5e0bfd
+
+	column loan_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: dc5d1da1-3706-4e4a-bb9a-075b4f453763
+		summarizeBy: sum
+		sourceColumn: loan_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 3816253a-90c1-4f5d-954d-82f384cce753
+		summarizeBy: none
+		sourceColumn: customer_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 00392c9f-e42d-4af8-b876-0b3ca509665f
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 94655d04-5715-4524-ae04-ed85583ee32d
+		summarizeBy: none
+		sourceColumn: region_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7318450e-73aa-462a-b828-0064f3dc93d9
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 394d39b6-9e02-4e20-b484-60f67f4fec07
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column loan_amount
+		dataType: double
+		lineageTag: 5a816c59-43a2-45cb-90a3-e51e2e347187
+		summarizeBy: sum
+		sourceColumn: loan_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column annuity_amount
+		dataType: double
+		lineageTag: bd65f1c8-b95e-4680-8cd2-88f18442940e
+		summarizeBy: sum
+		sourceColumn: annuity_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column goods_price
+		dataType: double
+		lineageTag: 5d3916cb-9531-48de-a33e-6c6b69063832
+		summarizeBy: sum
+		sourceColumn: goods_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column loan_to_value_ratio
+		dataType: double
+		lineageTag: e02363e3-6eb2-4ee5-9a06-072ef0a05298
+		summarizeBy: sum
+		sourceColumn: loan_to_value_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column income_to_annuity_ratio
+		dataType: double
+		lineageTag: 304d9684-96ce-4275-98fa-b220fc2d8627
+		summarizeBy: sum
+		sourceColumn: income_to_annuity_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_default
+		dataType: int64
+		formatString: 0
+		lineageTag: dd3e1d15-b153-4b9c-9c46-3d1f2d59ec13
+		summarizeBy: sum
+		sourceColumn: is_default
+
+		annotation SummarizationSetBy = Automatic
+
+	column ext_score_avg
+		dataType: double
+		lineageTag: 9ddf1dae-1f3f-4448-892e-2b5191794ae6
+		summarizeBy: sum
+		sourceColumn: ext_score_avg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column num_documents_provided
+		dataType: int64
+		formatString: 0
+		lineageTag: 043e3159-6eec-40c0-bdbf-bae1942ad20c
+		summarizeBy: sum
+		sourceColumn: num_documents_provided
+
+		annotation SummarizationSetBy = Automatic
+
+	column apply_weekday
+		dataType: string
+		lineageTag: f5864fd7-9a27-4fe0-b7a4-62d7e7f28f6b
+		summarizeBy: none
+		sourceColumn: apply_weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column apply_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: d3b04739-9ea0-4732-a016-06c0d266e402
+		summarizeBy: sum
+		sourceColumn: apply_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column _created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16d207b7-f02d-4eba-8bf5-f09fd93a7271
+		summarizeBy: none
+		sourceColumn: _created_at
+
+		variation Variation
+			isDefault
+			relationship: 7632245b-d83a-4046-8efb-eaf4013cb6dc
+			defaultHierarchy: LocalDateTable_db7bb620-cb69-4e31-ae12-0a6e9f83119d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Affordability Band' = ```
+				VAR Ratio = 'dw fact_loan'[income_to_annuity_ratio]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(Ratio), "Unknown",
+				        Ratio < 4.5, "T1 <4.5x",
+				        Ratio < 6.25, "T2 4.5-6.25x",
+				        Ratio < 9.0, "T3 6.25-9x",
+				        "T4 >=9x"
+				    )
+			```
+		lineageTag: 8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
+		summarizeBy: none
+		sortByColumn: 'Payment Affordability Sort'
+
+	column 'Payment Affordability Sort' = ```
+				VAR Ratio = 'dw fact_loan'[income_to_annuity_ratio]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(Ratio), 5,
+				        Ratio < 4.5, 1,
+				        Ratio < 6.25, 2,
+				        Ratio < 9.0, 3,
+				        4
+				    )
+			```
+		formatString: 0
+		lineageTag: 9b0c1d2e-3f4a-5b6c-7d8e-9f0a1b2c3d4e
+		summarizeBy: sum
+
+	partition 'dw fact_loan' = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database("localhost", "ccip_dw"),
+				  #"Navigation 1" = Source{[Schema = "dw", Item = "fact_loan"]}[Data]
+				in
+				  #"Navigation 1"
+

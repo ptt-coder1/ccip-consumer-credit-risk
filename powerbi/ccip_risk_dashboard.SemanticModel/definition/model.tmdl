@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dw dim_customer","dw dim_region","dw dim_time","dw fact_economy","dw fact_loan","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'dw dim_customer'
+ref table DateTableTemplate_02e39f8c-0b8a-4317-bd55-2e2f6d9d2e99
+ref table LocalDateTable_b405374a-61b0-42b1-8324-8ce180a14dfc
+ref table 'dw dim_region'
+ref table 'dw dim_time'
+ref table 'dw fact_economy'
+ref table LocalDateTable_0851d148-5a8b-4d0d-826f-434755ac60a9
+ref table 'dw fact_loan'
+ref table LocalDateTable_db7bb620-cb69-4e31-ae12-0a6e9f83119d
+ref table _Measures
+ref table 'Risk Metric Parameter'
+
+ref cultureInfo en-US
+

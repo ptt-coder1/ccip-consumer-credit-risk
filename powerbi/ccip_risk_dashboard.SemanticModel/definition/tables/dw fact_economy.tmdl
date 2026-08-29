@@ -1,0 +1,158 @@
+table 'dw fact_economy'
+	lineageTag: eb7a3583-0f94-42cd-85da-a73e88ed9744
+
+	column economy_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 01457c7a-68d7-477f-b185-e6b7d9431be6
+		summarizeBy: sum
+		sourceColumn: economy_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c9aa586c-c0d5-4004-9a8b-845f86e44aa1
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		lineageTag: 08a7b981-edf4-415c-b938-ec7c50b27813
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		lineageTag: 3d1060d9-c7be-4676-a2df-37f4afe02c6f
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: 15870336-d8ac-4d27-9a36-e4b3c83683b9
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp_growth_pct
+		dataType: double
+		lineageTag: 0b771a0e-b7f9-4f7c-8937-533bbea79ab7
+		summarizeBy: sum
+		sourceColumn: gdp_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column inflation_cpi_pct
+		dataType: double
+		lineageTag: f3bbe9a0-a2fb-48aa-a0cd-6bca6d4ccf96
+		summarizeBy: sum
+		sourceColumn: inflation_cpi_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unemployment_rate_pct
+		dataType: double
+		lineageTag: aebaeb4f-3b54-45b6-8e21-9df4cb0d651e
+		summarizeBy: sum
+		sourceColumn: unemployment_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column domestic_credit_gdp_pct
+		dataType: double
+		lineageTag: f0f4043b-1d4c-448a-b8af-78112a7fd686
+		summarizeBy: sum
+		sourceColumn: domestic_credit_gdp_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gni_per_capita_usd
+		dataType: double
+		lineageTag: 38cf3817-c04a-4f70-b465-070aa017cace
+		summarizeBy: sum
+		sourceColumn: gni_per_capita_usd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fed_funds_rate
+		dataType: double
+		lineageTag: b24d735b-9241-47a5-bcd9-4bbd9fed9efe
+		summarizeBy: sum
+		sourceColumn: fed_funds_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column m2_money_supply_bn
+		dataType: double
+		lineageTag: 30b862ad-a707-42dd-ae4d-c3bd418a2713
+		summarizeBy: sum
+		sourceColumn: m2_money_supply_bn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cpi_us
+		dataType: double
+		lineageTag: bc55073e-1cb3-4683-b894-7cc413062f5a
+		summarizeBy: sum
+		sourceColumn: cpi_us
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unemployment_us_pct
+		dataType: double
+		lineageTag: 22eaafdc-9e6a-4c03-a4da-009202f034e5
+		summarizeBy: sum
+		sourceColumn: unemployment_us_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a4568faa-dd13-44ce-8013-23500bfc758f
+		summarizeBy: none
+		sourceColumn: _created_at
+
+		variation Variation
+			isDefault
+			relationship: 5f51eeff-318c-41b4-9388-2662c4f6a320
+			defaultHierarchy: LocalDateTable_0851d148-5a8b-4d0d-826f-434755ac60a9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw fact_economy' = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database("localhost", "ccip_dw"),
+				  #"Navigation 1" = Source{[Schema = "dw", Item = "fact_economy"]}[Data]
+				in
+				  #"Navigation 1"
+

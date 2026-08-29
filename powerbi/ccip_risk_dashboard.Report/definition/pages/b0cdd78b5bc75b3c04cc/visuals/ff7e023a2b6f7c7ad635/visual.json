@@ -1,0 +1,64 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "ff7e023a2b6f7c7ad635",
+  "position": {
+    "x": 20,
+    "y": 14,
+    "z": 0,
+    "height": 45,
+    "width": 1240,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "EXECUTIVE PORTFOLIO OVERVIEW",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "15pt",
+                      "color": "#ffffff"
+                    }
+                  },
+                  {
+                    "value": "   |   Portfolio Risk at a Glance",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontStyle": "italic",
+                      "fontFamily": "Segoe UI, -apple-system, sans-serif",
+                      "fontSize": "11pt",
+                      "color": "#94A3B8"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

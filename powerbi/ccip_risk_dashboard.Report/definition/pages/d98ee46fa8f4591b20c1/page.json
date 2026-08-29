@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "d98ee46fa8f4591b20c1",
+  "displayName": "Risk Drivers & Hotspots",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Thiết kế chưa có tên (3).png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "Thi_t_k__ch_a_c__t_n_(3)5825572110542092.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Normal'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "matrix_ext_affordability_heatmap_04",
+      "target": "matrix_early_warning_drilldown_06",
+      "type": "DataFilter"
+    },
+    {
+      "source": "matrix_ext_affordability_heatmap_04",
+      "target": "card_crit_rate_03",
+      "type": "DataFilter"
+    },
+    {
+      "source": "matrix_ext_affordability_heatmap_04",
+      "target": "chart_affordability_driver_05",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "chart_affordability_driver_05",
+      "target": "matrix_ext_affordability_heatmap_04",
+      "type": "DataFilter"
+    },
+    {
+      "source": "chart_affordability_driver_05",
+      "target": "matrix_early_warning_drilldown_06",
+      "type": "DataFilter"
+    }
+  ]
+}

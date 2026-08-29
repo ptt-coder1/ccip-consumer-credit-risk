@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "d9a6843df7fef6bf06eb",
+  "displayName": "Risk Segmentation",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Thiết kế chưa có tên (3).png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "Thi_t_k__ch_a_c__t_n_(3)275259842328042.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Normal'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "chart_ext_score_tier_01",
+      "target": "matrix_risk_drilldown_03",
+      "type": "DataFilter"
+    },
+    {
+      "source": "chart_ext_score_tier_01",
+      "target": "65aae2d876d043593569",
+      "type": "DataFilter"
+    },
+    {
+      "source": "chart_ext_score_tier_01",
+      "target": "chart_amount_at_risk_segment_02",
+      "type": "DataFilter"
+    },
+    {
+      "source": "chart_amount_at_risk_segment_02",
+      "target": "chart_ext_score_tier_01",
+      "type": "DataFilter"
+    },
+    {
+      "source": "matrix_risk_drilldown_03",
+      "target": "chart_ext_score_tier_01",
+      "type": "DataFilter"
+    },
+    {
+      "source": "matrix_risk_drilldown_03",
+      "target": "chart_amount_at_risk_segment_02",
+      "type": "DataFilter"
+    }
+  ]
+}

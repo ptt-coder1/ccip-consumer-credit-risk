@@ -1,0 +1,453 @@
+table 'dw dim_customer'
+	lineageTag: ca0a84ce-534b-48cf-81db-e9c2be4cf0ae
+
+	column customer_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: f740703c-79e0-4677-aab4-76b519159a05
+		summarizeBy: none
+		sourceColumn: customer_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 98554ebd-b02c-42e8-b148-95cd722f14af
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_years
+		dataType: int64
+		formatString: 0
+		lineageTag: b8f65ace-ab7d-4078-8ca2-c4f79bb60e4f
+		summarizeBy: sum
+		sourceColumn: age_years
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		lineageTag: 2a117214-4426-40fa-b38c-5adb3566ec50
+		summarizeBy: none
+		sourceColumn: age_group
+		sortByColumn: 'Age Group Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: e4736846-f4c0-4b01-8a3c-ff13cf410e0a
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_children
+		dataType: int64
+		formatString: 0
+		lineageTag: da0a8e2b-9ddf-4081-a3c4-e37f5f88194c
+		summarizeBy: sum
+		sourceColumn: num_children
+
+		annotation SummarizationSetBy = Automatic
+
+	column family_size
+		dataType: double
+		lineageTag: 98a07ee1-bd4e-42a4-a88f-8a18dbe3f6a3
+		summarizeBy: sum
+		sourceColumn: family_size
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column family_status
+		dataType: string
+		lineageTag: 4c49de44-9daf-49d2-bac2-09efc3485cb7
+		summarizeBy: none
+		sourceColumn: family_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column income_type
+		dataType: string
+		lineageTag: 701c0de4-50fb-4e9e-b80f-a566090cd6e7
+		summarizeBy: none
+		sourceColumn: income_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_income
+		dataType: double
+		lineageTag: 2cfdde11-5a42-4405-993a-9e70ab9dcfa3
+		summarizeBy: sum
+		sourceColumn: annual_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column education_level
+		dataType: string
+		lineageTag: c0e44f06-d207-4c78-a24e-9c85ebed58b0
+		summarizeBy: none
+		sourceColumn: education_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column occupation
+		dataType: string
+		lineageTag: 88d699d2-f258-418f-b3b5-0dfe6eeebd01
+		summarizeBy: none
+		sourceColumn: occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column years_employed
+		dataType: double
+		lineageTag: 67119c6f-a485-4b9b-b623-5b18bb56e241
+		summarizeBy: sum
+		sourceColumn: years_employed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_employment
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c4bc740-8535-4fd9-88b7-f195d8dec7e6
+		summarizeBy: sum
+		sourceColumn: has_employment
+
+		annotation SummarizationSetBy = Automatic
+
+	column owns_car
+		dataType: string
+		lineageTag: a6e6640f-05f7-4e88-a791-9203d4c93525
+		summarizeBy: none
+		sourceColumn: owns_car
+
+		annotation SummarizationSetBy = Automatic
+
+	column owns_realty
+		dataType: string
+		lineageTag: 08e14d5c-5516-4446-8529-cd21d1109592
+		summarizeBy: none
+		sourceColumn: owns_realty
+
+		annotation SummarizationSetBy = Automatic
+
+	column housing_type
+		dataType: string
+		lineageTag: ca186dc1-e689-44af-b695-2112d58d5f4a
+		summarizeBy: none
+		sourceColumn: housing_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column ext_score_1
+		dataType: double
+		lineageTag: 6da98f73-c4d7-4cec-859a-89e3a4db8921
+		summarizeBy: sum
+		sourceColumn: ext_score_1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ext_score_2
+		dataType: double
+		lineageTag: e055d42e-cd93-4a00-b4aa-b1746f7c8bc9
+		summarizeBy: sum
+		sourceColumn: ext_score_2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ext_score_3
+		dataType: double
+		lineageTag: 16fb41fd-3d8f-4507-8ff4-2d57e0efb24e
+		summarizeBy: sum
+		sourceColumn: ext_score_3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ext_score_avg
+		dataType: double
+		lineageTag: d8bad31b-bed5-46ae-91b1-efc9fdd04502
+		summarizeBy: sum
+		sourceColumn: ext_score_avg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column num_external_credits
+		dataType: int64
+		formatString: 0
+		lineageTag: 560bc25b-79d8-41fa-b7c9-f578053de405
+		summarizeBy: sum
+		sourceColumn: num_external_credits
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_active_credits
+		dataType: int64
+		formatString: 0
+		lineageTag: f11e80aa-cf26-48a4-aac0-63579f08db04
+		summarizeBy: sum
+		sourceColumn: num_active_credits
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_closed_credits
+		dataType: int64
+		formatString: 0
+		lineageTag: 964f8082-88d2-4bb1-8ba4-bafba5ed3e4b
+		summarizeBy: sum
+		sourceColumn: num_closed_credits
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_active_credit_amt
+		dataType: double
+		lineageTag: 24da5678-0ab6-4f15-a16e-0365c254e4d7
+		summarizeBy: sum
+		sourceColumn: total_active_credit_amt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_overdue_amt
+		dataType: double
+		lineageTag: 250eb9d8-5496-4353-a7cc-a18cc8b662d8
+		summarizeBy: sum
+		sourceColumn: total_overdue_amt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max_overdue_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 6080cd5b-2ff9-445f-83f8-06b11e0fb2ae
+		summarizeBy: sum
+		sourceColumn: max_overdue_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_credits_overdue
+		dataType: double
+		lineageTag: 32ce6685-5f6a-4779-94c4-e3f93b389810
+		summarizeBy: sum
+		sourceColumn: pct_credits_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column num_late_payment_months
+		dataType: int64
+		formatString: 0
+		lineageTag: 4819b0d1-019a-49f1-9a6b-a6354f9fe79e
+		summarizeBy: sum
+		sourceColumn: num_late_payment_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_late_months
+		dataType: double
+		lineageTag: 9118dd98-5d4d-4882-99c5-55deee852f0c
+		summarizeBy: sum
+		sourceColumn: pct_late_months
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column num_prev_applications
+		dataType: int64
+		formatString: 0
+		lineageTag: bf3a66b8-8f2a-4638-8590-39f399d7fa09
+		summarizeBy: sum
+		sourceColumn: num_prev_applications
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_approved
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b6aeff5-353f-49ff-b788-fc1f9fdc2d44
+		summarizeBy: sum
+		sourceColumn: num_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_refused
+		dataType: int64
+		formatString: 0
+		lineageTag: 39bd6c87-71f1-4e8e-a17a-99a709d4274a
+		summarizeBy: sum
+		sourceColumn: num_refused
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_rate_pct
+		dataType: double
+		lineageTag: e1108d67-14c9-4ba6-90ed-161b35eff75b
+		summarizeBy: sum
+		sourceColumn: approval_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_prev_credit_amt
+		dataType: double
+		lineageTag: 37f9eff1-968e-4814-8b7d-2b6de5741e61
+		summarizeBy: sum
+		sourceColumn: avg_prev_credit_amt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_days_since_prev_decision
+		dataType: double
+		lineageTag: 1f6b694d-2335-4490-9096-715bc1603c33
+		summarizeBy: sum
+		sourceColumn: avg_days_since_prev_decision
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 14e70ff1-b768-4b57-90b7-7b0f93298d58
+		summarizeBy: none
+		sourceColumn: _created_at
+
+		variation Variation
+			isDefault
+			relationship: 12abe531-ab12-406d-be3c-70c3b8eb2604
+			defaultHierarchy: LocalDateTable_b405374a-61b0-42b1-8324-8ce180a14dfc.'Date Hierarchy'
+
+	column 'Relative Risk Segment' = ```
+				VAR Score = 'dw dim_customer'[ext_score_avg]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(Score), "Unknown",
+				        Score >= 0.6276, "Q1 - Lowest Risk",
+				        Score >= 0.5144, "Q2 - Low-Moderate Risk",
+				        Score >= 0.3868, "Q3 - Moderate-High Risk",
+				        "Q4 - Highest Risk"
+				    )
+			```
+		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+		summarizeBy: none
+		sortByColumn: 'Relative Risk Segment Sort'
+
+	column 'Relative Risk Segment Sort' = ```
+				VAR Score = 'dw dim_customer'[ext_score_avg]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(Score), 5,
+				        Score >= 0.6276, 1,
+				        Score >= 0.5144, 2,
+				        Score >= 0.3868, 3,
+				        4
+				    )
+			```
+		formatString: 0
+		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+		summarizeBy: sum
+
+	column 'Bureau Delinquency Status' = ```
+				VAR LateMonths = 'dw dim_customer'[num_late_payment_months]
+				VAR MaxOverdue = 'dw dim_customer'[max_overdue_days]
+				RETURN
+				    IF(
+				        LateMonths > 0 || MaxOverdue > 0,
+				        "Delinquency History (Past Late)",
+				        "Clean History (Never Late)"
+				    )
+			```
+		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-8e9f0a1b2c3d
+		summarizeBy: none
+		sortByColumn: 'Bureau Delinquency Sort'
+
+	column 'Bureau Delinquency Sort' = ```
+				VAR LateMonths = 'dw dim_customer'[num_late_payment_months]
+				VAR MaxOverdue = 'dw dim_customer'[max_overdue_days]
+				RETURN
+				    IF(LateMonths > 0 || MaxOverdue > 0, 1, 2)
+			```
+		formatString: 0
+		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-9f0a1b2c3d4e
+
+	column 'Age Group Sort' = ```
+				VAR _Age = 'dw dim_customer'[age_years]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Age), 6,
+				        _Age < 25, 1,
+				        _Age < 35, 2,
+				        _Age < 45, 3,
+				        _Age < 55, 4,
+				        5
+				    )
+			```
+		formatString: 0
+		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-0a1b2c3d4e5f
+
+	column 'Income Type Clean' = ```
+				SWITCH(
+				    'dw dim_customer'[income_type],
+				    "Working", "Working",
+				    "Commercial associate", "Commercial associate",
+				    "Pensioner", "Pensioner",
+				    "State servant", "State servant",
+				    "Other (Low Sample)"
+				)
+			```
+		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-2c3d4e5f6a7b
+		summarizeBy: none
+		sortByColumn: 'Income Type Clean Sort'
+
+	column 'Income Type Clean Sort' = ```
+				SWITCH(
+				    'dw dim_customer'[income_type],
+				    "Working", 1,
+				    "Commercial associate", 2,
+				    "State servant", 3,
+				    "Pensioner", 4,
+				    5
+				)
+			```
+		formatString: 0
+		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-3d4e5f6a7b8c
+		summarizeBy: sum
+
+	partition 'dw dim_customer' = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database("localhost", "ccip_dw"),
+				  #"Navigation 1" = Source{[Schema = "dw", Item = "dim_customer"]}[Data]
+				in
+				  #"Navigation 1"
+

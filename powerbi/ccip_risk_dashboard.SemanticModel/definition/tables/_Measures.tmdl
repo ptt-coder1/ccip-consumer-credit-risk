@@ -1,0 +1,427 @@
+table _Measures
+	lineageTag: 5f1c98a3-2890-4a81-9f93-cb79b88c7a10
+
+	measure 'Total Loans' = COUNTROWS('dw fact_loan')
+		formatString: #,0
+		lineageTag: c31a89c2-7801-445e-b2d9-a78b9c104011
+
+	measure 'Total Defaults' = SUM('dw fact_loan'[is_default])
+		formatString: #,0
+		lineageTag: e8a201c9-7612-4c6e-9872-b91c01928312
+
+	measure 'Default Rate %' = DIVIDE([Total Defaults], [Total Loans], 0)
+		formatString: 0.00%
+		lineageTag: a72b9012-3481-4209-981a-c89b71029413
+
+	measure 'Total Loan Amount' = SUM('dw fact_loan'[loan_amount])
+		formatString: #,0
+		lineageTag: f9120938-1290-482a-a921-b87c09182314
+
+	measure 'Avg Loan Amount' = AVERAGE('dw fact_loan'[loan_amount])
+		formatString: #,0
+		lineageTag: b8291039-4821-4820-b918-c89019283415
+
+	measure 'Avg Credit Score' = AVERAGE('dw fact_loan'[ext_score_avg])
+		formatString: 0.0000
+		lineageTag: c8901928-3829-4102-a890-d89019283416
+
+	measure 'Default Rate Female %' = ```
+				CALCULATE(
+				    [Default Rate %],
+				    'dw dim_customer'[gender] = "F"
+				)
+			```
+		formatString: 0.00%
+		lineageTag: e9019283-4920-4102-b891-e89019283418
+
+	measure 'Default Rate Male %' = ```
+				CALCULATE(
+				    [Default Rate %],
+				    'dw dim_customer'[gender] = "M"
+				)
+			```
+		formatString: 0.00%
+		lineageTag: f9019283-4920-4102-b891-e89019283419
+
+	measure 'Total Borrowers' = DISTINCTCOUNT('dw fact_loan'[customer_sk])
+		formatString: #,0
+		lineageTag: 46588d46-1746-45f9-964f-b06ca8b8663a
+
+	measure 'Amount at Risk' = ```
+				CALCULATE(
+				    [Total Loan Amount],
+				    'dw fact_loan'[is_default] = 1
+				)
+			```
+		formatString: #,0
+		lineageTag: 6c5d3655-afe0-48df-a012-062607c67ff3
+
+	measure 'Total Exposure (B)' = ```
+				DIVIDE([Total Loan Amount], 1000000000, 0)
+			```
+		formatString: 0.0"B"
+		lineageTag: 3b4c5d6e-7f8a-9b0c-1d2e-3f4a5b6c7d8e
+
+	measure 'Amount at Risk (B)' = ```
+				DIVIDE([Amount at Risk], 1000000000, 0)
+			```
+		formatString: 0.0"B"
+		lineageTag: 2a3b4c5d-6e7f-8a9b-0c1d-2e3f4a5b6c7d
+
+	measure 'Total Borrowers Display' = ```
+				VAR _Val = [Total Borrowers]
+				RETURN
+				    FORMAT(_Val / 1000, "#,##0.0") & "K"
+			```
+		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+
+	measure 'Total Exposure Display' = ```
+				VAR _Val = [Total Loan Amount]
+				RETURN
+				    FORMAT(_Val / 1000000000, "#,##0.0") & "B"
+			```
+		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+
+	measure 'Amount at Risk Display' = ```
+				VAR _Val = [Amount at Risk]
+				RETURN
+				    FORMAT(_Val / 1000000000, "#,##0.00") & "B"
+			```
+		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+
+	measure 'Total Defaults Display' = ```
+				FORMAT([Total Defaults], "#,##0")
+			```
+		lineageTag: 0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a
+
+	measure 'Default Rate Display' = ```
+				FORMAT([Default Rate %], "0.00%")
+			```
+		lineageTag: 1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b
+
+	measure 'Portfolio Baseline %' = ```
+				CALCULATE(
+				    [Default Rate %],
+				    ALL('dw fact_loan'),
+				    ALL('dw dim_customer')
+				)
+			```
+		formatString: 0.00%
+		lineageTag: 4a5b6c7d-8e9f-0a1b-2c3d-4e5f6a7b8c9d
+
+	measure 'Q1 Default Rate %' = ```
+				DIVIDE(
+				    CALCULATE([Total Defaults], 'dw dim_customer'[Relative Risk Segment Sort] = 1),
+				    CALCULATE([Total Loans], 'dw dim_customer'[Relative Risk Segment Sort] = 1),
+				    0
+				)
+			```
+		formatString: 0.00%
+		lineageTag: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+
+	measure 'Q4 Default Rate %' = ```
+				DIVIDE(
+				    CALCULATE([Total Defaults], 'dw dim_customer'[Relative Risk Segment Sort] = 4),
+				    CALCULATE([Total Loans], 'dw dim_customer'[Relative Risk Segment Sort] = 4),
+				    0
+				)
+			```
+		formatString: 0.00%
+		lineageTag: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+
+	measure 'Q4 to Q1 Risk Ratio' = ```
+				VAR _Q1 = [Q1 Default Rate %]
+				VAR _Q4 = [Q4 Default Rate %]
+				RETURN
+				    IF(_Q1 > 0, DIVIDE(_Q4, _Q1), BLANK())
+			```
+		formatString: 0.00"x"
+		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
+
+	measure 'Critical Risk Applications' = ```
+				CALCULATE(
+				    [Total Loans],
+				    ALL('dw fact_loan'),
+				    ALL('dw dim_customer'),
+				    'dw dim_customer'[Relative Risk Segment Sort] = 4,
+				    'dw fact_loan'[Payment Affordability Sort] = 1
+				)
+			```
+		formatString: #,0
+		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-5b6c7d8e9f0a
+
+	measure 'Critical Risk Exposure (B)' = ```
+				DIVIDE(
+				    CALCULATE(
+				        [Amount at Risk],
+				        ALL('dw fact_loan'),
+				        ALL('dw dim_customer'),
+				        'dw dim_customer'[Relative Risk Segment Sort] = 4,
+				        'dw fact_loan'[Payment Affordability Sort] = 1
+				    ),
+				    1000000000,
+				    0
+				)
+			```
+		formatString: 0.00"B"
+		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-6c7d8e9f0a1b
+
+	measure 'Critical Risk Default Rate %' = ```
+				DIVIDE(
+				    CALCULATE(
+				        [Total Defaults],
+				        ALL('dw fact_loan'),
+				        ALL('dw dim_customer'),
+				        'dw dim_customer'[Relative Risk Segment Sort] = 4,
+				        'dw fact_loan'[Payment Affordability Sort] = 1
+				    ),
+				    CALCULATE(
+				        [Total Loans],
+				        ALL('dw fact_loan'),
+				        ALL('dw dim_customer'),
+				        'dw dim_customer'[Relative Risk Segment Sort] = 4,
+				        'dw fact_loan'[Payment Affordability Sort] = 1
+				    ),
+				    0
+				)
+			```
+		formatString: 0.00%
+		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-7d8e9f0a1b2c
+
+	measure 'Heatmap Cell Color' = ```
+				VAR _Rate = [Default Rate %]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Rate), "#FFFFFF",
+				        _Rate < 0.03, "#DCFCE7",   -- Xanh lá nhạt (An toàn)
+				        _Rate < 0.05, "#BBF7D0",   -- Xanh lục dịu
+				        _Rate < 0.08, "#FEF08A",   -- Vàng nhạt (Baseline)
+				        _Rate < 0.12, "#FDBA74",   -- Cam cảnh báo
+				        _Rate < 0.18, "#F87171",   -- Đỏ nhạt (Nguy cơ cao)
+				        "#EF4444"                  -- Đỏ đậm (Hotspot cực đại)
+				    )
+			```
+		lineageTag: 7a8b9c0d-2e3f-4a5b-7c8d-9e0f1a2b3c4d
+
+	measure 'Heatmap Text Color' = ```
+				VAR _Rate = [Default Rate %]
+				RETURN
+				    IF(_Rate >= 0.18, "#FFFFFF", "#1E293B")
+			```
+		lineageTag: 8b9c0d1e-3f4a-5b6c-8d9e-0f1a2b3c4d5e
+
+	measure 'Tooltip Dynamic Header' = ```
+				VAR _EXT = SELECTEDVALUE('dw dim_customer'[Relative Risk Segment], "Risk Profile")
+				VAR _Afford = SELECTEDVALUE('dw fact_loan'[Payment Affordability Band], "Affordability")
+				VAR _AffordDesc = SWITCH(
+				    _Afford,
+				    "T1 <4.5x", "T1 (High Payment Burden)",
+				    "T2 4.5-6.25x", "T2 (Moderate-High Burden)",
+				    "T3 6.25-9x", "T3 (Moderate Burden)",
+				    "T4 >=9x", "T4 (Low Payment Burden)",
+				    _Afford
+				)
+				RETURN
+				    UPPER(_EXT & " × " & _AffordDesc)
+			```
+		lineageTag: 9c0d1e2f-4a5b-6c7d-8e9f-1a2b3c4d5e6f
+
+	measure 'Tooltip Baseline Interpretation' = ```
+				VAR _Rate = [Default Rate %]
+				VAR _Base = [Portfolio Baseline %]
+				VAR _Mult = DIVIDE(_Rate, _Base)
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Rate), "",
+				        _Mult >= 1.5, "▲ " & FORMAT(_Mult, "0.00") & "× Portfolio Baseline",
+				        _Mult >= 1.0, "▲ " & FORMAT(_Mult, "0.00") & "× Portfolio Baseline",
+				        "▼ " & FORMAT(_Mult, "0.00") & "× Portfolio Baseline"
+				    )
+			```
+		lineageTag: 0d1e2f3a-5b6c-7d8e-9f0a-2b3c4d5e6f7a
+
+	measure 'Tooltip Risk Status' = ```
+				VAR _Rate = [Default Rate %]
+				RETURN
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Rate), "N/A",
+				        _Rate >= 0.18, "⚠ CRITICAL HOTSPOT",
+				        _Rate >= 0.12, "⚠ HIGH-RISK CONCENTRATION",
+				        _Rate >= 0.08, "● MODERATE RISK PROFILE",
+				        "✓ LOW-RISK PROFILE"
+				    )
+			```
+		lineageTag: 1e2f3a4b-6c7d-8e9f-0a1b-3c4d5e6f7a8b
+
+	measure 'Tooltip Secondary Summary' = ```
+				"Loans: " & [Total Loans Display] & "  |  Risk: " & [Amount at Risk Display] & "  |  Defaults: " & [Total Defaults Display]
+			```
+		lineageTag: 2f3a4b5c-7d8e-9f0a-1b2c-4d5e6f7a8b9c
+
+	measure 'Tooltip Full Risk Profile Text' = ```
+				VAR _EXT = SELECTEDVALUE('dw dim_customer'[Relative Risk Segment], "Selected EXT Tier")
+				VAR _Afford = SELECTEDVALUE('dw fact_loan'[Payment Affordability Band], "Selected Affordability")
+				VAR _Rate = [Default Rate %]
+				VAR _Base = [Portfolio Baseline %]
+				VAR _Loans = [Total Loans Display]
+				VAR _Defaults = [Total Defaults Display]
+				VAR _RiskAmt = [Amount at Risk Display]
+				
+				VAR _DiffPP = (_Rate - _Base) * 100
+				VAR _Mult = DIVIDE(_Rate, _Base)
+				
+				VAR _PPText = 
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Rate), "",
+				        _DiffPP >= 0, "+" & FORMAT(_DiffPP, "0.00") & " pp vs Portfolio",
+				        FORMAT(_DiffPP, "0.00") & " pp vs Portfolio"
+				    )
+				
+				VAR _BadgeText = 
+				    SWITCH(
+				        TRUE(),
+				        ISBLANK(_Rate), "",
+				        _Rate >= 0.18, "● HIGH-RISK HOTSPOT (" & FORMAT(_Mult, "0.00") & "× BASELINE)",
+				        _Rate >= 0.12, "● ELEVATED RISK (" & FORMAT(_Mult, "0.00") & "× BASELINE)",
+				        _Rate >= 0.08, "● MODERATE · NEAR BASELINE",
+				        "● LOW-RISK · BELOW BASELINE"
+				    )
+				
+				RETURN
+				    IF(
+				        ISBLANK(_Rate) || _EXT = "Unknown" || _Afford = "Unknown",
+				        "Vui lòng hover vào 16 ô" & UNICHAR(10) &
+				        "ma trận Q1–Q4 × T1–T4.",
+				        _EXT & "  |  " & _Afford & UNICHAR(10) &
+				        "────────────────────────" & UNICHAR(10) &
+				        "       " & FORMAT(_Rate, "0.00%") & " DEFAULT RATE" & UNICHAR(10) &
+				        "   " & _PPText & " (Base 8.07%)" & UNICHAR(10) &
+				        "────────────────────────" & UNICHAR(10) &
+				        "• Loans: " & _Loans & "   • Defaults: " & _Defaults & UNICHAR(10) &
+				        "• Amount at Risk: " & _RiskAmt & " CU" & UNICHAR(10) &
+				        "────────────────────────" & UNICHAR(10) &
+				        _BadgeText
+				    )
+			```
+		lineageTag: 3a4b5c6d-7e8f-9a0b-1c2d-5e6f7a8b9c0d
+
+	measure 'Total Loans Display' = ```
+				VAR _Val = [Total Loans]
+				RETURN
+				    IF(
+				        _Val >= 1000,
+				        FORMAT(_Val / 1000, "#,##0.0") & "K",
+				        FORMAT(_Val, "#,##0")
+				    )
+			```
+		lineageTag: 6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e
+
+	measure 'Young Borrower Default Rate %' = ```
+				VAR _Defaults = 
+				    CALCULATE(
+				        SUM('dw fact_loan'[is_default]),
+				        REMOVEFILTERS('dw dim_customer'[age_years]),
+				        REMOVEFILTERS('dw dim_customer'[age_group]),
+				        'dw dim_customer'[age_years] < 25
+				    )
+				VAR _Loans = 
+				    CALCULATE(
+				        COUNTROWS('dw fact_loan'),
+				        REMOVEFILTERS('dw dim_customer'[age_years]),
+				        REMOVEFILTERS('dw dim_customer'[age_group]),
+				        'dw dim_customer'[age_years] < 25
+				    )
+				RETURN
+				    DIVIDE(_Defaults, _Loans, 0)
+			```
+		formatString: 0.00%
+		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-8e9f0a1b2c3d
+
+	measure 'Young Borrower KPI Text' = ```
+				VAR _Rate = [Young Borrower Default Rate %]
+				VAR _Base = [Portfolio Baseline %]
+				VAR _Diff = (_Rate - _Base) * 100
+				VAR _Sign = IF(_Diff >= 0, "+", "")
+				RETURN
+				    FORMAT(_Rate, "0.00%") & "  (" & _Sign & FORMAT(_Diff, "0.00") & " pp vs Portfolio)"
+			```
+		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-9f0a1b2c3d4e
+
+	measure 'Working Income Default Rate %' = ```
+				VAR _Defaults = 
+				    CALCULATE(
+				        SUM('dw fact_loan'[is_default]),
+				        REMOVEFILTERS('dw dim_customer'[income_type]),
+				        REMOVEFILTERS('dw dim_customer'[Income Type Clean]),
+				        'dw dim_customer'[income_type] = "Working"
+				    )
+				VAR _Loans = 
+				    CALCULATE(
+				        COUNTROWS('dw fact_loan'),
+				        REMOVEFILTERS('dw dim_customer'[income_type]),
+				        REMOVEFILTERS('dw dim_customer'[Income Type Clean]),
+				        'dw dim_customer'[income_type] = "Working"
+				    )
+				RETURN
+				    DIVIDE(_Defaults, _Loans, 0)
+			```
+		formatString: 0.00%
+		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-0a1b2c3d4e5f
+
+	measure 'Working Income KPI Text' = ```
+				VAR _Rate = [Working Income Default Rate %]
+				VAR _Base = [Portfolio Baseline %]
+				VAR _Diff = (_Rate - _Base) * 100
+				VAR _Sign = IF(_Diff >= 0, "+", "")
+				RETURN
+				    FORMAT(_Rate, "0.00%") & "  (" & _Sign & FORMAT(_Diff, "0.00") & " pp vs Portfolio)"
+			```
+		lineageTag: 0d1e2f3a-4b5c-6d7e-8f9a-1b2c3d4e5f6a
+
+	measure 'Lower Secondary Default Rate %' = ```
+				VAR _Defaults = 
+				    CALCULATE(
+				        SUM('dw fact_loan'[is_default]),
+				        REMOVEFILTERS('dw dim_customer'[education_level]),
+				        SEARCH("lower secondary", 'dw dim_customer'[education_level], 1, 0) > 0
+				    )
+				VAR _Loans = 
+				    CALCULATE(
+				        COUNTROWS('dw fact_loan'),
+				        REMOVEFILTERS('dw dim_customer'[education_level]),
+				        SEARCH("lower secondary", 'dw dim_customer'[education_level], 1, 0) > 0
+				    )
+				RETURN
+				    DIVIDE(_Defaults, _Loans, 0)
+			```
+		formatString: 0.00%
+		lineageTag: 1e2f3a4b-5c6d-7e8f-9a0b-2c3d4e5f6a7b
+
+	measure 'Lower Secondary KPI Text' = ```
+				VAR _Rate = [Lower Secondary Default Rate %]
+				VAR _Base = [Portfolio Baseline %]
+				VAR _Diff = (_Rate - _Base) * 100
+				VAR _Sign = IF(_Diff >= 0, "+", "")
+				RETURN
+				    FORMAT(_Rate, "0.00%") & "  (" & _Sign & FORMAT(_Diff, "0.00") & " pp vs Portfolio)"
+			```
+		lineageTag: 2f3a4b5c-6d7e-8f9a-0b1c-3d4e5f6a7b8c
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

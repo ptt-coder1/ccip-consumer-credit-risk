@@ -1,0 +1,41 @@
+relationship 12abe531-ab12-406d-be3c-70c3b8eb2604
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'dw dim_customer'._created_at
+	toColumn: LocalDateTable_b405374a-61b0-42b1-8324-8ce180a14dfc.Date
+
+relationship 5f51eeff-318c-41b4-9388-2662c4f6a320
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'dw fact_economy'._created_at
+	toColumn: LocalDateTable_0851d148-5a8b-4d0d-826f-434755ac60a9.Date
+
+relationship 7632245b-d83a-4046-8efb-eaf4013cb6dc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'dw fact_loan'._created_at
+	toColumn: LocalDateTable_db7bb620-cb69-4e31-ae12-0a6e9f83119d.Date
+
+relationship b64fd2e8-af62-4616-a902-5adb238df1d4
+	fromColumn: 'dw fact_economy'.date_id
+	toColumn: 'dw dim_time'.date_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship ce9fab13-23c2-4828-94be-2d077324a5b8
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'dw fact_loan'.customer_sk
+	toColumn: 'dw dim_customer'.customer_sk
+
+	annotation PBI_IsFromSource = FS
+
+relationship 5147fcdd-4592-44f2-80cc-45335722f838
+	fromColumn: 'dw fact_loan'.region_sk
+	toColumn: 'dw dim_region'.region_sk
+
+	annotation PBI_IsFromSource = FS
+
+relationship 75982e8d-ccbd-46bf-ad25-2b9834e85fc8
+	fromColumn: 'dw fact_loan'.date_id
+	toColumn: 'dw dim_time'.date_id
+
+	annotation PBI_IsFromSource = FS
+
