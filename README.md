@@ -56,13 +56,25 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
   - `dw.dim_region`: 3-tier geographic economic risk classifications.
   - `dw.dim_time` & `dw.fact_economy`: Macroeconomic context tracking (GDP, Inflation, Unemployment).
 
-### 2. Executive BI Layer (Power BI Desktop)
-- **4-Page Executive Storyboard:**
-  - **P1 - Portfolio Overview:** Macro exposure cards (184.2B CU, 8.07% baseline, 13.8B CU at risk) and product mix.
-  - **P2 - Risk Segments:** Monotonic risk quartile distribution (Q1 2.71% $\rightarrow$ Q4 17.28%).
-  - **P3 - Risk Hotspots Drill-down:** Interactive $4 \times 4$ Matrix Heatmap (EXT Quartiles $\times$ Affordability Tiers) highlighting the **Q4 × T1 (19.91%)** cluster.
-  - **P4 - Borrower Risk Profile:** Deep dive into demographics (<25 age: 12.31%) and education/employment cross-tabulation.
-- **Centralized DAX Architecture:** Dynamic hex interpolation (`Heatmap Cell Color`), dynamic tooltips, and strict decoupling from presentation layers. Passed executive UX validation (T9 Protocol).
+### 2. Executive BI Layer (Power BI Desktop Storyboard)
+
+#### 📊 Page 1: Executive Portfolio Overview
+*High-level portfolio visibility tracking 307.5k loans, 184.2B CU exposure, 13.85B CU amount at risk, and product risk breakdowns.*
+![Executive Portfolio Overview](docs/images/01_portfolio_overview.png)
+
+#### 📊 Page 2: Risk Segmentation (Monotonic Risk Gradient)
+*Univariate monotonic risk stratification (Q1 2.69% $\rightarrow$ Q4 18.60%, 6.93× risk ratio) equipped with dynamic metric parameter switcher.*
+![Risk Segmentation](docs/images/02_risk_segmentation.png)
+
+#### 📊 Page 3: Risk Drivers & Hotspots ($4 \times 4$ Matrix Heatmap)
+*Multivariate risk concentration uncovering the critical **Q4 × T1 Hotspot** (19.90% default rate, 16,158 applications, 2.10B CU exposure at risk).*
+![Risk Drivers and Hotspots](docs/images/03_risk_hotspots.png)
+
+#### 📊 Page 4: Borrower Risk Profile (Demographics & Financial Profile)
+*Deep demographic analysis across age cohorts (<25: 12.31%), employment status, and education $\times$ income cross-tabulation.*
+![Borrower Risk Profile](docs/images/04_borrower_profile.png)
+
+---
 
 ### 3. Predictive Machine Learning Layer (LightGBM + SHAP)
 - **Leakage-Free Experimental Design:** 60% Train (184,506) / 20% Validation (61,502) / 20% Test Holdout (61,503) stratified split. Early stopping evaluated exclusively on Validation Set.
