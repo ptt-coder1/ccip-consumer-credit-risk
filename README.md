@@ -1,7 +1,9 @@
 # Consumer Credit Intelligence Platform (CCIP)
 ### End-to-End Credit Risk Analytics | Data Engineering | Executive BI | Interpretable Machine Learning
 
-An enterprise-grade, end-to-end analytics platform transforming **58.5M+ raw records** into a **PostgreSQL Star Schema Data Warehouse**, an interactive **4-Page Executive Power BI Storyboard**, and an interpretable **LightGBM risk-ranking model**.
+> 📊 **Power BI Storyboard** · 🤖 **Interpretable ML Pipeline** · 🐳 **Dockerized Environment** · 📑 **Governance Matrix**
+
+An end-to-end analytics platform transforming **58.5M+ raw records** into a **PostgreSQL Star Schema Data Warehouse**, an interactive **4-Page Executive Power BI Storyboard**, and an interpretable **LightGBM risk-ranking model**.
 
 **Scale:** `307,511` loan applications | `184.2B CU` portfolio exposure | `8.07%` portfolio default rate  
 **Stack:** `PostgreSQL 16` · `SQL (ELT)` · `Python 3.11` · `Power BI (DAX / TMDL)` · `LightGBM` · `SHAP` · `Docker`
@@ -24,7 +26,7 @@ An enterprise-grade, end-to-end analytics platform transforming **58.5M+ raw rec
 | **Executive BI** | 4-Page Storyboard (Overview, Segments, Hotspots, Demographics) | Power BI Desktop, Centralized DAX, TMDL |
 | **Statistical Risk Analytics** | Monotonic risk gradient (Q1–Q4) & multivariate $4 \times 4$ Hotspot Matrix | Pearson Correlation, Fixed Operational Cut-offs |
 | **Predictive Modeling** | Non-linear risk ranking evaluated on strict holdout test set | LightGBM vs Logistic Regression (ROC-AUC 0.7636, AP 0.2535) |
-| **Explainability (XAI)** | Game-theoretic global feature attribution (Top: `ext_score_avg`, `LTV`) | SHAP (TreeExplainer), 5,000 holdout test samples |
+| **Model Explainability (XAI)** | Global feature importance & risk drivers (Top: `ext_score_avg`, `LTV`) | SHAP (TreeExplainer), 5,000 holdout test samples |
 | **Actionable Governance** | 5 core insights mapped to 3 decision tiers (Descriptive, Operational, Policy) | Formal Matrix with designated Decision Owners |
 | **Reproducibility** | Containerized ML environment & anonymized sample dataset | Docker (`Dockerfile`, `.dockerignore`), Parquet |
 
@@ -38,8 +40,8 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
 ```
 ┌─────────────────────────┐      ┌─────────────────────────┐      ┌─────────────────────────┐
 │     DATA ENGINEERING    │      │      DESCRIPTIVE BI     │      │      PREDICTIVE ML      │
-│  PostgreSQL Star Schema │ ───► │  Power BI 4-Page Story  │ ───► │  LightGBM + SHAP (Colab)│
-│  307,511 Rows (SSOT)    │      │  Executive UX (T9 Pass) │      │  AUC: 0.7636 | AP:0.2535│
+│  PostgreSQL Star Schema │ ───► │  Executive BI Storyboard│ ───► │  LightGBM + SHAP (Colab)│
+│  307,511 Rows (SSOT)    │      │  Interactive 4-Page App │      │  AUC: 0.7636 | AP:0.2535│
 └─────────────────────────┘      └─────────────────────────┘      └─────────────────────────┘
                                               │                                │
                                               └────────────────┬───────────────┘
