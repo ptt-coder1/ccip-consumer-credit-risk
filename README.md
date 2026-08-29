@@ -66,17 +66,27 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
 
 ---
 
-## 🏗️ System Architecture & Pipeline Design
+## 🏗️ System Architecture & Data Modeling
 
-### 1. Data Warehouse Layer (PostgreSQL 16)
-- **Dimensional Modeling:** Kimball-standard Star Schema with strict grain rule: **1 Row = 1 Application = 1 Customer = 1 Target (307,511 rows)**.
-- **Tables:**
-  - `dw.fact_loan`: 307,511 loan records with exposure, annuity, goods price, LTV, affordability ratios.
-  - `dw.dim_customer`: Demographics, income, education, employment, and aggregated Bureau history.
+### 1. End-to-End Enterprise Architecture
+*CCIP follows a layered ELT pipeline from 58.5M+ raw records into a structured PostgreSQL Data Warehouse, powering Executive Power BI reporting and interpretable Machine Learning.*
+![CCIP End-to-End Architecture](docs/architecture/ccip_architecture.png)
+
+### 2. Data Warehouse Layer & Star Schema Design
+*Kimball-standard Star Schema strictly enforcing the analytical grain contract: **1 Row = 1 Application = 1 Customer = 1 Target (307,511 SSOT Grain)**.*
+![CCIP Star Schema](docs/architecture/ccip_star_schema.png)
+
+- **Fact Tables:**
+  - `dw.fact_loan`: 307,511 loan records with exposure, annuity, goods price, LTV, and payment affordability ratios.
+  - `dw.fact_economy`: Macroeconomic context tracking (GDP growth, CPI inflation, Unemployment rate 2010–2018).
+- **Dimension Tables:**
+  - `dw.dim_customer`: Demographics, income, education, employment, and aggregated Credit Bureau history.
   - `dw.dim_region`: 3-tier geographic economic risk classifications.
-  - `dw.dim_time` & `dw.fact_economy`: Macroeconomic context tracking (GDP, Inflation, Unemployment).
+  - `dw.dim_time`: Standardized temporal dimension.
 
-### 2. Executive BI Layer (Power BI Desktop Storyboard)
+---
+
+### 3. Executive BI Layer (Power BI Desktop Storyboard)
 
 #### 📊 Page 1: Executive Portfolio Overview
 *High-level portfolio visibility tracking 307.5k loans, 184.2B CU exposure, 13.85B CU amount at risk, and product risk breakdowns.*
@@ -166,13 +176,18 @@ ccip-consumer-credit-risk/
 │   └── ccip_academic_report.md             # Complete 7-chapter academic research report
 │
 └── docs/                                   # Data dictionaries & analytical documentation
-    ├── data_dictionary.md
-    ├── huong_dan_giai_thich_du_lieu_cho_nguoi_moi.md
+    ├── data_dictionary.md                  # Comprehensive field-level data dictionary
+    ├── huong_dan_giai_thich_du_lieu_cho_nguoi_moi.md # Credit risk & domain guide
+    │
+    ├── architecture/                       # System architecture & Star Schema diagrams
+    │   ├── ccip_architecture.png           # End-to-end data & analytics pipeline diagram
+    │   └── ccip_star_schema.png            # PostgreSQL Star Schema dimensional design
+    │
     └── images/                             # 4-page Power BI Dashboard screenshots
-        ├── 01_portfolio_overview.png
-        ├── 02_risk_segmentation.png
-        ├── 03_risk_hotspots.png
-        └── 04_borrower_profile.png
+        ├── 01_portfolio_overview.png       # P1: Executive Portfolio Overview
+        ├── 02_risk_segmentation.png        # P2: Risk Segmentation (Monotonic Gradient)
+        ├── 03_risk_hotspots.png            # P3: Risk Drivers & Hotspots (4x4 Matrix)
+        └── 04_borrower_profile.png         # P4: Borrower Demographic & Financial Profile
 ```
 
 ---
