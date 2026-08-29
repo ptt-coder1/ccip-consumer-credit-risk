@@ -39,19 +39,19 @@ Mọi khuyến nghị kinh doanh trong CCIP được phân loại nghiêm ngặt
 * **Mã RQ liên quan:** RQ1 & RQ2 (Risk Profile & External Credit Scoring Monotonicity)
 * **Bằng chứng Dữ liệu (Data & SSOT Evidence):**
   - Portfolio Baseline: **8.07%**.
-  - Tỷ lệ vỡ nợ tăng đơn điệu (Monotonic) từ nhóm điểm cao xuống thấp:
-    - **Q1 (Lowest Risk, ext_score_avg ≥ 0.6276):** Default rate **`2.71%`** (Tỷ lệ vỡ nợ thấp hơn baseline 5.36 pp; chiếm 23.8% danh mục).
-    - **Q2 (Low-Moderate, 0.5144 ≤ score < 0.6276):** Default rate **`4.58%`**.
-    - **Q3 (Moderate-High, 0.3868 ≤ score < 0.5144):** Default rate **`7.71%`**.
-    - **Q4 (Highest Risk, ext_score_avg < 0.3868):** Default rate **`17.28%`** (Cao gấp **2.14 lần** baseline; cao gấp **6.38 lần** nhóm Q1).
+  - Tỷ lệ vỡ nợ tăng đơn điệu (Monotonic) theo phân tầng rủi ro cố định (Fixed Score Cut-offs):
+    - **Q1 (Lowest Risk, ext_score_avg ≥ 0.6276):** Default rate **`2.69%`** (`1,970 / 73,352` hồ sơ; chiếm 23.9% danh mục).
+    - **Q2 (Low-Moderate, 0.5144 ≤ score < 0.6276):** Default rate **`4.63%`** (`4,093 / 88,345` hồ sơ).
+    - **Q3 (Moderate-High, 0.3868 ≤ score < 0.5144):** Default rate **`8.55%`** (`7,095 / 82,994` hồ sơ).
+    - **Q4 (Highest Risk, ext_score_avg < 0.3868):** Default rate **`18.60%`** (`11,653 / 62,648` hồ sơ; cao gấp **2.30 lần** baseline; cao gấp **6.91 lần (xấp xỉ 6.93x)** nhóm Q1).
   - Tương quan Pearson tuyến tính âm mạnh nhất trong các biến số: `r = -0.2229`.
 * **Bối cảnh Phân tích (Context):** `[Evidence-backed]`
   - Điểm số tín dụng bên ngoài (tổng hợp từ các tổ chức chấm điểm tín dụng độc lập) phản ánh lịch sử trả nợ quá khứ của khách hàng trên toàn hệ thống tài chính.
 * **Kiểm định Bằng chứng & Giới hạn (Evidence / Limitation Check):**
   - **Correlation vs Causation:** Correlation mạnh. Điểm thấp không trực tiếp "gây ra" vỡ nợ, mà phản ánh xác suất rủi ro cao của hành vi tài chính trong quá khứ.
-  - **Selection Bias:** Nhóm khách hàng nộp đơn đã vượt qua một số bộ lọc sơ bộ, tuy nhiên `ext_score_avg` có độ bao phủ cao (chỉ 33 trường hợp thiếu điểm trên tập Test).
+  - **Selection Bias:** Nhóm khách hàng nộp đơn đã vượt qua một số bộ lọc sơ bộ, tuy nhiên `ext_score_avg` có độ bao phủ cao (chỉ 172 trường hợp thiếu điểm trên toàn danh mục và 33 trường hợp trên tập Test).
 * **Đánh giá Trọng yếu Kinh doanh (Materiality Check):**
-  - **Cực kỳ trọng yếu:** Chênh lệch rủi ro giữa Q4 (17.28%) và Q1 (2.71%) lên tới **14.57 pp**. Khoảng 43.5% số ca default quan sát được trong danh mục thuộc về nhóm Q4.
+  - **Cực kỳ trọng yếu:** Chênh lệch rủi ro giữa Q4 (18.60%) và Q1 (2.69%) lên tới **15.91 pp**. Khoảng **46.9%** số ca default quan sát được trong danh mục thuộc về nhóm Q4 (mặc dù Q4 chỉ chiếm 20.4% quy mô hồ sơ).
 * **Đề xuất Hành động (Decisions):**
   - `[Operational Action - Level 2]`: Phân luồng luồng phê duyệt: Fast-track STP cho nhóm Q1; ưu tiên chuyển nhóm Q4 sang luồng thẩm định nâng cao (enhanced/manual review) thay vì tự động từ chối. Việc áp dụng hard decline chỉ được xem xét sau khi có cost matrix, validation bổ sung và governance review.
   - `[Policy Action - Level 3]`: Xem xét áp dụng cơ chế Định giá Lãi suất theo Rủi ro (Risk-Based Pricing) với biên độ bù rủi ro cho nhóm Q3–Q4.
@@ -66,10 +66,10 @@ Mọi khuyến nghị kinh doanh trong CCIP được phân loại nghiêm ngặt
 * **Bằng chứng Dữ liệu (Data & SSOT Evidence):**
   - Ma trận nhiệt kết hợp giữa **Điểm tín dụng (Q1–Q4)** và **Tỷ lệ Bao phủ Thu nhập/Trả góp (Affordability Tiers T1–T4)**:
     - **Vùng điểm nóng (Hotspot Q4 × T1):** Hồ sơ có điểm tín dụng thấp (`ext_score_avg < 0.3868`) kết hợp gánh nặng trả góp cao (`income_to_annuity < 4.5x`).
-    - Tỷ lệ vỡ nợ Hotspot: **`19.91%`** (Cao gấp **2.47 lần** baseline danh mục).
+    - Tỷ lệ vỡ nợ Hotspot: **`19.90%`** (`3,216 / 16,158` hồ sơ; cao gấp **2.47 lần** baseline danh mục).
     - Quy mô bị ảnh hưởng: **16,158 hồ sơ** (chiếm 5.25% toàn bộ danh mục).
-    - Dư nợ chịu rủi ro (Exposure at Risk): **2.10 tỷ CU** (trên tổng 184.2B CU).
-  - Đối chiếu thực nghiệm ML Test Set: Tỷ lệ vỡ nợ thực tế nhóm này là **19.90%** (Gap so với SSOT chỉ `0.01 pp`), điểm số rủi ro mô hình trung bình là **67.48**.
+    - Dư nợ phơi nhiễm rủi ro (Amount at Risk): **2.10 tỷ CU** (chính xác `2,096,007,278 CU` trên tổng 11.11B CU giải ngân phân khúc).
+  - Đối chiếu thực nghiệm ML Test Set: Tỷ lệ vỡ nợ thực tế nhóm này là **19.90%** (Gap so với SSOT đúng `0.00 pp`), điểm số rủi ro mô hình trung bình là **67.48**.
 * **Bối cảnh Phân tích (Context):** `[Evidence-backed]`
   - Rủi ro vỡ nợ tăng phi tuyến khi khách hàng vừa có uy tín tín dụng thấp trong quá khứ, vừa có đòn bẩy trả nợ vượt quá khả năng tài chính hiện tại (hiệu ứng cộng hưởng rủi ro đa chiều).
 * **Kiểm định Bằng chứng & Giới hạn (Evidence / Limitation Check):**
@@ -88,8 +88,8 @@ Mọi khuyến nghị kinh doanh trong CCIP được phân loại nghiêm ngặt
 ### INS-003: Phân khúc Nhân khẩu học Trẻ tuổi (< 25 tuổi)
 * **Mã RQ liên quan:** RQ1 & RQ4 (Borrower Demographics & Age Segment Risk)
 * **Bằng chứng Dữ liệu (Data & SSOT Evidence):**
-  - Tỷ lệ vỡ nợ nhóm tuổi **< 25 tuổi**: **`12.31%`** (Cao gấp **1.53 lần** baseline danh mục `8.07%`).
-  - Đường cong rủi ro theo độ tuổi giảm dần theo thời gian: `<25 (12.31%)` → `25–34 (10.02%)` → `35–44 (7.98%)` → `45–54 (6.97%)` → `55+ (5.66%)`.
+  - Tỷ lệ vỡ nợ nhóm tuổi **< 25 tuổi**: **`12.31%`** (`1,496 / 12,150` hồ sơ; cao gấp **1.53 lần** baseline danh mục `8.07%`).
+  - Đường cong rủi ro theo độ tuổi giảm dần theo thời gian: `<25 (12.31%)` → `25–34 (10.67%)` → `35–44 (8.40%)` → `45–54 (7.06%)` → `55+ (5.21%)`.
   - Trong SHAP Global Importance, biến độ tuổi (`age_years`) xếp thứ 8 trong nhóm numeric features (`Mean |SHAP| = 0.0722`).
 * **Bối cảnh Phân tích (Context):** `[Hypothesis - cần cẩn trọng]`
   - *Giả thuyết:* Nhóm trẻ tuổi thường có thời gian làm việc ngắn (`years_employed` thấp), công việc chưa ổn định, thiếu tài sản tích lũy và kinh nghiệm quản lý ngân sách cá nhân.
@@ -110,12 +110,13 @@ Mọi khuyến nghị kinh doanh trong CCIP được phân loại nghiêm ngặt
 * **Mã RQ liên quan:** RQ4 (Borrower Financial & Education Profile)
 * **Bằng chứng Dữ liệu (Data & SSOT Evidence):**
   - Theo Nhóm thu nhập (`income_type`):
-    - **Nhóm Lao động tự do / Công nhân (Working):** Default rate **`9.59%`** (chiếm đa số hồ sơ).
-    - **Nhóm Công chức nhà nước (State Servant):** Default rate **`5.77%`** (thấp hơn baseline 2.30 pp).
-    - **Nhóm Hưu trí (Pensioner):** Default rate **`5.36%`**.
+    - **Nhóm Lao động tự do / Công nhân (Working):** Default rate **`9.59%`** (`15,224 / 158,774` hồ sơ; chiếm 51.6% danh mục).
+    - **Nhóm Công chức nhà nước (State Servant):** Default rate **`5.75%`** (`1,249 / 21,703` hồ sơ; thấp hơn baseline 2.32 pp).
+    - **Nhóm Hưu trí (Pensioner):** Default rate **`5.39%`** (`2,982 / 55,362` hồ sơ; thấp hơn baseline 2.68 pp).
+    - **Nhóm Khác (Unemployed / Maternity / Student / Business):** Rủi ro quan sát lên tới `18.18%` trên mẫu gộp.
   - Theo Học vấn (`education_level`):
-    - **Học vấn Phổ thông cơ sở (Lower Secondary):** Default rate **`10.93%`**.
-    - **Học vấn Đại học trở lên (Higher Education):** Default rate **`5.36%`** (thấp hơn 2.71 pp so với baseline).
+    - **Học vấn Phổ thông cơ sở (Lower Secondary):** Default rate **`10.93%`** (`417 / 3,816` hồ sơ).
+    - **Học vấn Đại học trở lên (Higher Education):** Default rate **`5.36%`** (`4,009 / 74,863` hồ sơ; thấp hơn 2.71 pp so với baseline).
   - SHAP xác nhận `name_education_type` (`Rank #9`, `Mean |SHAP| = 0.0827`) và `occupation_type` (`Rank #7`, `Mean |SHAP| = 0.0926`) là các biến phân loại có đóng góp lớn vào mô hình.
 * **Bối cảnh Phân tích (Context):** `[Evidence-backed]`
   - Trình độ học vấn cao và công tác trong khu vực nhà nước mang lại nguồn thu nhập ổn định hơn, ít bị ảnh hưởng bởi biến động chu kỳ kinh tế vĩ mô.

@@ -38,11 +38,11 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
 
 | Category | Finding & Metric | Business & Strategic Impact |
 | :--- | :--- | :--- |
-| **Portfolio Baseline** | **8.07%** Default Rate (`24,825` defaults / `307,511` loans) | **184.2B CU** total portfolio exposure; **~13.8B CU** total amount at risk. |
-| **Monotonic Risk Gradient** | **Q1 (2.71%) $\longrightarrow$ Q4 (17.28%)** | Q4 default rate is **6.38× higher** than Q1; Q4 accounts for **43.5%** of all portfolio defaults. Pearson $r = -0.2229$. |
-| **Critical Risk Hotspot** | **Q4 × T1 Hotspot = 19.91% Default Rate** | **16,158 applications** ($5.25\%$ of portfolio) with **2.10B CU exposure at risk**. Default rate is **2.47×** the portfolio baseline. |
-| **ML Predictive Lift** | **ROC-AUC = 0.7636 \| Average Precision (AP) = 0.2535** | $+1.10\text{ pp}$ AUC and $+1.62\text{ pp}$ AP over Logistic Regression baseline. AP is **3.14×** random baseline prevalence. |
-| **SQL $\leftrightarrow$ ML Consistency** | **Holdout Test Set Hotspot = 19.90%** (Gap: **0.01 pp**) | Confirms structural model robustness and aligns predictive scores (Mean: **67.48**) with DWH descriptive metrics. |
+| **Portfolio Baseline** | **8.07%** Default Rate (`24,825` defaults / `307,511` loans) | **184.2B CU** total portfolio exposure; **~13.8B CU** total amount at risk (`13,846,851,950 CU`). |
+| **Monotonic Risk Gradient** | **Q1 (2.69%) $\longrightarrow$ Q4 (18.60%)** | Q4 default rate is **6.91× higher (≈6.93x)** than Q1; Q4 accounts for **46.9%** of all portfolio defaults (`11,653 / 24,825`). Pearson $r = -0.2229$. |
+| **Critical Risk Hotspot** | **Q4 × T1 Hotspot = 19.90% Default Rate** | **16,158 applications** ($5.25\%$ of portfolio) with **2.10B CU exposure at risk** (`2,096,007,278 CU`). Default rate is **2.47×** the portfolio baseline. |
+| **ML Predictive Lift** | **ROC-AUC = 0.7636 \| Average Precision (AP) = 0.2535** | $+1.10\text{ pp}$ ROC-AUC and $+1.62\text{ pp}$ AP over Logistic Regression baseline. AP is **3.14×** random baseline prevalence. |
+| **SQL $\leftrightarrow$ ML Consistency** | **Holdout Test Set Hotspot = 19.90%** (Gap: **0.00 pp**) | Confirms structural model robustness and aligns predictive risk ranking scores (Mean: **67.48**) with DWH descriptive metrics. |
 
 ---
 

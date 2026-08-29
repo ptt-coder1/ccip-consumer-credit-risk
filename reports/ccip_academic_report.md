@@ -12,7 +12,7 @@
 > - **Tổng giá trị phơi nhiễm (Total Loan Exposure):** `184.2 tỷ CU` (Currency Units)
 > - **Tỷ lệ vỡ nợ danh mục (Portfolio Default Rate):** `8.07%` (`24,825` khoản vỡ nợ / `282,686` khoản trả đúng hạn)
 > - **Tổng dư nợ chịu rủi ro (Amount at Risk):** `~13.8 tỷ CU`
-> - **Phân khúc điểm nóng (Hotspot Q4 × T1):** Tỷ lệ vỡ nợ `19.91%` (Quy mô: `16,158` hồ sơ | Phơi nhiễm: `2.10 tỷ CU`)
+> - **Phân khúc điểm nóng (Hotspot Q4 × T1):** Tỷ lệ vỡ nợ `19.90%` (Quy mô: `16,158` hồ sơ | Phơi nhiễm rủi ro: `2.10 tỷ CU`)
 
 ---
 
@@ -162,47 +162,47 @@ Data Warehouse được chuẩn hóa theo mô hình Star Schema trên cơ sở d
 # CHƯƠNG 3: PHÂN TÍCH THỐNG KÊ MÔ TẢ & KHÁM PHÁ RỦI RO
 
 ### 3.1. Phân tầng Rủi ro Đơn biến theo Điểm tín dụng (Monotonic Risk Gradient Q1 → Q4)
-Phân tích phân vị tứ phân (Quartiles) trên điểm tín dụng trung bình ngoài (`ext_score_avg`) chỉ ra **mối quan hệ đơn điệu rõ ràng trong dữ liệu quan sát** với tỷ lệ vỡ nợ:
+Phân tích phân tầng rủi ro trên điểm tín dụng trung bình ngoài (`ext_score_avg`) chỉ ra **mối quan hệ đơn điệu rõ ràng trong dữ liệu quan sát** với tỷ lệ vỡ nợ:
 
-| Phân khúc Rủi ro | Ngưỡng Điểm Tín dụng | Số lượng Hồ sơ | Tỷ lệ trong Danh mục | Tỷ lệ Vỡ nợ (Default Rate) | So với Baseline (8.07%) |
+| Phân khúc Rủi ro | Ngưỡng Điểm Tín dụng | Số lượng Hồ sơ | Tỷ lệ trong Danh mục | Tỷ lệ Vỡ nợ (Default Rate) | Đóng góp vào Tổng Vỡ nợ |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Q1 (Lowest Risk)** | $\ge 0.6276$ | 73,195 | 23.8% | **2.71%** | $-5.36\text{ pp}$ |
-| **Q2 (Low-Moderate)** | $[0.5144, 0.6276)$ | 89,313 | 29.0% | **4.58%** | $-3.49\text{ pp}$ |
-| **Q3 (Moderate-High)** | $[0.3868, 0.5144)$ | 82,360 | 26.8% | **7.71%** | $-0.36\text{ pp}$ |
-| **Q4 (Highest Risk)** | $< 0.3868$ | 62,478 | 20.3% | **17.28%** | **$+9.21\text{ pp}$** |
+| **Q1 (Lowest Risk)** | $\ge 0.6276$ | 73,352 | 23.9% | **2.69%** | 7.9% |
+| **Q2 (Low-Moderate)** | $[0.5144, 0.6276)$ | 88,345 | 28.7% | **4.63%** | 16.5% |
+| **Q3 (Moderate-High)** | $[0.3868, 0.5144)$ | 82,994 | 27.0% | **8.55%** | 28.6% |
+| **Q4 (Highest Risk)** | $< 0.3868$ | 62,648 | 20.4% | **18.60%** | **46.9%** |
 
-* **Nhận xét chuyên môn:** Tỷ lệ vỡ nợ ở nhóm Q4 (17.28%) cao gấp **2.14 lần** baseline danh mục và cao gấp **6.38 lần** nhóm Q1. Mặc dù chỉ chiếm 20.3% số lượng hồ sơ, **khoảng 43.5% các ca default quan sát được trong danh mục thuộc về nhóm Q4**. Hệ số tương quan Pearson giữa điểm tín dụng và vỡ nợ đạt $r = -0.2229$ (mối liên kết tuyến tính mạnh nhất trong các biến số).
-*(Lưu ý về phương pháp phân nhóm: Trong các truy vấn SQL khám phá ban đầu, hàm `NTILE(4)` phân chia danh mục thành 4 nhóm có dung lượng bằng nhau ~76,835 hồ sơ/nhóm; khi chuyển giao lên Power BI và ML pipeline, hệ thống chuẩn hóa sang các ngưỡng điểm cố định (Fixed Score Cut-offs) để đảm bảo tính ứng dụng quy tắc tĩnh).*
+* **Nhận xét chuyên môn:** Tỷ lệ vỡ nợ ở nhóm Q4 (18.60%) cao gấp **2.30 lần** baseline danh mục (`8.07%`) và cao gấp **6.91 lần (xấp xỉ 6.93x)** nhóm Q1 (`2.69%`). Mặc dù chỉ chiếm 20.4% số lượng hồ sơ, **nhóm Q4 đóng góp tới 46.9% tổng số ca vỡ nợ toàn danh mục**. Hệ số tương quan Pearson giữa điểm tín dụng và vỡ nợ đạt $r = -0.2229$ (mối liên kết tuyến tính âm mạnh nhất trong các biến số).
+*(Lưu ý về phương pháp luận: Trong giai đoạn SQL EDA ban đầu, hàm `NTILE(4)` phân chia danh mục thành 4 nhóm kích thước bằng nhau ~76.8k hồ sơ với default rate 2.71% $\rightarrow$ 17.28%; khi chuyển sang tầng triển khai nghiệp vụ trên Power BI và ML pipeline, hệ thống chuẩn hóa sang phân tầng quy tắc cố định (Fixed Operational Score Cut-offs) với ngưỡng Q1 $\ge 0.6276$ và Q4 $< 0.3868$, mang lại default rate tương ứng 2.69% $\rightarrow$ 18.60%).*
 
 ### 3.2. Phân tích Rủi ro Đa chiều & Vùng Điểm nóng (Hotspot Q4 × T1)
 Khi kết hợp chéo giữa Điểm tín dụng và Tỷ lệ Chi trả Thu nhập (`income_to_annuity`), bức tranh rủi ro bộc lộ tính chất tập trung phi tuyến tính:
 
 ```
                   MA TRẬN RỦI RO ĐA CHIỀU (DEFAULT RATE %)
-┌───────────────────────┬────────────┬────────────┬────────────┬────────────┐
-│ Affordability Tier    │ Q1 (Thấp)  │ Q2 (TB-Thấp│ Q3 (TB-Cao)│ Q4 (Cao)   │
-├───────────────────────┼────────────┼────────────┼────────────┼────────────┤
-│ T1 (< 4.5x - Gánh nặng)│   3.12%    │   5.40%    │   9.15%    │  19.91% 🔥 │
-│ T2 [4.5x - 6.5x)      │   2.68%    │   4.55%    │   7.68%    │  16.85%    │
-│ T3 [6.5x - 9.0x)      │   2.51%    │   4.30%    │   7.20%    │  15.92%    │
-│ T4 (≥ 9.0x - Dồi dào) │   2.40%    │   4.10%    │   6.80%    │  14.50%    │
-└───────────────────────┴────────────┴────────────┴────────────┴────────────┘
+┌─────────────────────────┬────────────┬────────────┬────────────┬────────────┐
+│ Affordability Tier      │ Q1 (Thấp)  │ Q2 (TB-Thấp│ Q3 (TB-Cao)│ Q4 (Cao)   │
+├─────────────────────────┼────────────┼────────────┼────────────┼────────────┤
+│ T1 (< 4.5x - Gánh nặng) │   3.07%    │   5.25%    │   9.46%    │  19.90% 🔥 │
+│ T2 [4.5x - 6.25x)       │   2.79%    │   4.88%    │   8.96%    │  19.65%    │
+│ T3 [6.25x - 9.0x)       │   2.53%    │   4.30%    │   8.34%    │  18.20%    │
+│ T4 (≥ 9.0x - Dồi dào)   │   2.23%    │   4.01%    │   7.40%    │  16.59%    │
+└─────────────────────────┴────────────┴────────────┴────────────┴────────────┘
 ```
 
 * **Quy mô Vùng Điểm nóng (Hotspot Q4 × T1):**
-  - Tỷ lệ vỡ nợ: **`19.91%`** (Gần 1/5 khách hàng không có khả năng hoàn trả).
+  - Tỷ lệ vỡ nợ: **`19.90%`** (3,216 ca vỡ nợ / 16,158 hồ sơ, cao gấp 2.47 lần baseline danh mục).
   - Số lượng hồ sơ: **`16,158`** hồ sơ (chiếm 5.25% danh mục).
-  - Dư nợ phơi nhiễm rủi ro: **`2.10 tỷ CU`**.
+  - Dư nợ chịu rủi ro (Amount at Risk): **`2.10 tỷ CU`** (chính xác `2,096,007,278 CU` dư nợ vỡ nợ trên tổng `11.11 tỷ CU` giải ngân phân khúc).
   - **Ý nghĩa:** Đây là phân khúc có rủi ro cộng hưởng nghiêm trọng nhất — nơi khách hàng vừa có uy tín tín dụng kém trong quá khứ, vừa gánh chịu áp lực trả nợ lớn.
 
 ### 3.3. Đặc trưng Nhân khẩu học: Độ tuổi, Thu nhập và Nghề nghiệp
 - **Phân hóa theo Độ tuổi:**
-  - Nhóm trẻ tuổi (**< 25 tuổi**): Tỷ lệ vỡ nợ đạt **`12.31%`** (cao nhất trong các nhóm tuổi, cao gấp 1.53 lần baseline).
-  - Tỷ lệ vỡ nợ giảm đều đặn theo độ tuổi: `25–34 (10.02%)` → `35–44 (7.98%)` → `45–54 (6.97%)` → `55+ (5.66%)`.
+  - Nhóm trẻ tuổi (**< 25 tuổi**): Tỷ lệ vỡ nợ đạt **`12.31%`** (`1,496 / 12,150` hồ sơ, cao gấp 1.53 lần baseline).
+  - Tỷ lệ vỡ nợ giảm đều đặn theo độ tuổi: `25–34 (10.67%)` → `35–44 (8.40%)` → `45–54 (7.06%)` → `55+ (5.21%)`.
 - **Phân hóa theo Nghề nghiệp & Học vấn:**
-  - Nhóm Học vấn Đại học trở lên (`Higher Education`): Tỷ lệ vỡ nợ **`5.36%`** (thấp hơn baseline 2.71 pp).
-  - Nhóm Học vấn Phổ thông cơ sở (`Lower Secondary`): Tỷ lệ vỡ nợ **`10.93%`**.
-  - Nhóm Công chức nhà nước (`State Servant`): Tỷ lệ vỡ nợ **`5.77%`** vs Lao động tự do/công nhân (`Working`): **`9.59%`**.
+  - Nhóm Học vấn Đại học trở lên (`Higher education`): Tỷ lệ vỡ nợ **`5.36%`** (`4,009 / 74,863` hồ sơ, thấp hơn baseline 2.71 pp).
+  - Nhóm Học vấn Phổ thông cơ sở (`Lower secondary`): Tỷ lệ vỡ nợ **`10.93%`** (`417 / 3,816` hồ sơ).
+  - Phân hóa theo Loại hình thu nhập: Nhóm Công chức nhà nước (`State servant`): **`5.75%`** (`1,249 / 21,703`); Nhóm Hưu trí (`Pensioner`): **`5.39%`** (`2,982 / 55,362`); Nhóm Lao động tự do/công nhân (`Working`): **`9.59%`** (`15,224 / 158,774`).
 
 ### 3.4. Bối cảnh Kinh tế Vĩ mô Tham chiếu (Macroeconomic Reference Context)
 Dữ liệu từ `dw.fact_economy` cung cấp bối cảnh kinh tế độc lập giai đoạn 2010–2018:
