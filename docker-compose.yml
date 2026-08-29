@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ccip_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ccip_dw}
+      POSTGRES_USER: ${POSTGRES_USER:-ccip_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Ccip@2024!}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Lưu dữ liệu PostgreSQL ra ngoài container, tắt máy không mất dữ liệu
+      - pgdata:/var/lib/postgresql/data
+      # Chạy script khởi tạo ngay khi container khởi động lần đầu
+      - ./setup/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ccip_user} -d ${POSTGRES_DB:-ccip_dw}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+    name: ccip_pgdata

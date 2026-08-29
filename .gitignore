@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables & Secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+credentials.json
+service-account*.json
+*.pem
+*.key
+
+# Data Files & Storage (Excluded from Git)
+data/processed/*.parquet
+data/raw/
+*.csv
+*.zip
+*.tar.gz
+*.sqlite
+*.db
+
+# Machine Learning Models & Artifacts
+*.pkl
+*.joblib
+*.h5
+*.model
+
+# Power BI Local Cache & Binary User Settings
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+
+# IDE & Operating System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

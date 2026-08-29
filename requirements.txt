@@ -1,0 +1,35 @@
+# =============================================
+# Kết nối PostgreSQL
+# =============================================
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+
+# =============================================
+# Xử lý dữ liệu
+# =============================================
+pandas>=2.1
+numpy>=1.26
+python-dotenv>=1.0
+
+# =============================================
+# Giai đoạn 1 — Data Profiling
+# =============================================
+ydata-profiling>=4.6
+jupyter>=1.0
+ipykernel>=6.0
+
+# =============================================
+# Giai đoạn 2 — Extract từ API
+# =============================================
+requests>=2.31
+kaggle>=1.6                  # Kaggle CLI + API
+pandas-datareader>=0.10      # World Bank / FRED wrapper tiện hơn requests thuần
+
+# =============================================
+# Giai đoạn 5 — Phân tích nâng cao (tùy chọn)
+# =============================================
+lightgbm>=4.0
+shap>=0.44
+matplotlib>=3.8
+seaborn>=0.13
+scikit-learn>=1.3
