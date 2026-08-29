@@ -110,29 +110,56 @@ ccip-consumer-credit-risk/
 ├── README.md                               # Executive portfolio presentation & overview
 ├── LICENSE                                 # MIT Open-Source License
 ├── .gitignore                              # Strict data, secrets, and cache exclusion
+├── .env.example                            # Configuration environment template
 ├── requirements.txt                        # Python dependencies
-├── docker-compose.yml                      # PostgreSQL 16 container definition
+├── Dockerfile                              # Reproducible ML container definition
+├── .dockerignore                           # Docker build optimization rules
+├── docker-compose.yml                      # PostgreSQL 16 Warehouse container definition
+├── run_pipeline.py                         # End-to-end automated ELT execution pipeline
 │
 ├── data/
 │   ├── README.md                           # Data governance & sample reproduction guide
 │   └── sample_ccip_data.parquet            # 1,000-row anonymized sample dataset
 │
+├── extract/                                # Raw data ingestion scripts
+│   ├── extract_homecredit.py
+│   └── extract_macro.py
+│
+├── load/                                   # High-performance database loader
+│   ├── load_raw.py
+│   └── load_raw_fast.py                    # Streaming COPY ingestion
+│
 ├── transform/                              # SQL ELT & Data Warehouse transformation scripts
 │   ├── staging/                            # Cleaning, sentinel value handling, type casting
 │   │   ├── stg_application.sql
-│   │   ├── stg_bureau_summary.sql
-│   │   └── stg_previous_application.sql
-│   └── dw/                                 # Star Schema tables (Fact & Dimensions)
+│   │   ├── stg_bureau.sql
+│   │   ├── stg_macro.sql
+│   │   └── stg_previous_app.sql
+│   └── dw/                                 # Star Schema tables (Fact & Dimensions - 307.5k SSOT)
 │       ├── fact_loan.sql
 │       ├── dim_customer.sql
 │       ├── dim_region.sql
 │       ├── dim_time.sql
 │       └── fact_economy.sql
 │
+├── setup/                                  # Database initialization & validation
+│   ├── init.sql                            # Schema DDL definitions
+│   ├── data_quality_check.py               # Automated data quality & integrity test suite
+│   ├── dq_output.json                      # Validated DQ test results
+│   └── check_full_pipeline.py
+│
+├── powerbi/                                # Production Power BI Project (PBIP & TMDL)
+│   ├── ccip_risk_dashboard.pbip            # Power BI Project root file
+│   ├── ccip_risk_dashboard.Report/         # Visual definitions (JSON), themes, page layouts
+│   └── ccip_risk_dashboard.SemanticModel/  # TMDL measures, calculated columns, relationships
+│
 ├── analysis/                               # Analytical & Modeling pipelines
-│   ├── export_ml_dataset.py                # Automated DWH-to-Parquet ML dataset extractor
 │   ├── sql_analysis.sql                    # SQL analytical queries (RQ1 to RQ6)
-│   └── 02_python_analysis.ipynb            # ML training, validation, evaluation & SHAP notebook
+│   ├── export_ml_dataset.py                # Automated DWH-to-Parquet ML dataset extractor
+│   ├── 01_data_profiling.ipynb             # Descriptive statistics & exploratory analysis
+│   ├── 02_python_analysis.ipynb            # ML training, validation, evaluation & SHAP notebook
+│   ├── run_analysis.py                     # Scripted analysis runner
+│   └── statistical_hypothesis_tests.py     # Chi-Square & Wilson Score confidence interval tests
 │
 ├── reports/                                # Formal governance & research deliverables
 │   ├── findings_and_recommendations_matrix.md  # 5-Insight matrix with 3 decision levels & owners
@@ -140,7 +167,12 @@ ccip-consumer-credit-risk/
 │
 └── docs/                                   # Data dictionaries & analytical documentation
     ├── data_dictionary.md
-    └── huong_dan_giai_thich_du_lieu_cho_nguoi_moi.md
+    ├── huong_dan_giai_thich_du_lieu_cho_nguoi_moi.md
+    └── images/                             # 4-page Power BI Dashboard screenshots
+        ├── 01_portfolio_overview.png
+        ├── 02_risk_segmentation.png
+        ├── 03_risk_hotspots.png
+        └── 04_borrower_profile.png
 ```
 
 ---
