@@ -68,13 +68,79 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
 
 ## 🏗️ System Architecture & Data Modeling
 
-### 1. End-to-End Enterprise Architecture
-*CCIP follows a layered ELT pipeline from 58.5M+ raw records into a structured PostgreSQL Data Warehouse, powering Executive Power BI reporting and interpretable Machine Learning.*
-![CCIP End-to-End Architecture](docs/architecture/ccip_architecture.png)
+### 1. End-to-End Data Pipeline Architecture
+```text
+┌────────────────────────┐      ┌────────────────────────┐      ┌────────────────────────┐
+│     1. DATA SOURCE     │      │   2. INGESTION & ELT   │      │   3. STAR SCHEMA DWH   │
+│ • 8 Raw CSV Tables     │ ───► │ • Python Stream Ingest │ ───► │ • PostgreSQL 16 (SSOT) │
+│ • 58.5M+ Records       │      │ • psycopg2 COPY Binary │      │ • 307,511 Grain (Fact) │
+│ • App, Bureau, Macro   │      │ • RAW ──► STAGING      │      │ • Dimensions & Context │
+└────────────────────────┘      └────────────────────────┘      └────────────────────────┘
+                                                                             │
+                                ┌────────────────────────────────────────────┴────────────────────────────────────────────┐
+                                ▼                                                                                         ▼
+┌────────────────────────────────────────────────────────┐                               ┌────────────────────────────────────────────────────────┐
+│               4. EXECUTIVE BI STORYBOARD               │                               │              5. PREDICTIVE ML & EXPLAINABILITY         │
+│ • Power BI Desktop (PBIP / TMDL)                       │                               │ • LightGBM Non-Linear Risk Ranking (60/20/20 Split)   │
+│ • P1: Portfolio Overview  │ P2: Monotonic Segments     │                               │ • ROC-AUC: 0.7636 | Average Precision (AP): 0.2535     │
+│ • P3: 4x4 Hotspots Matrix │ P4: Borrower Risk Profile  │                               │ • SHAP TreeExplainer Global Feature Importance         │
+└────────────────────────────────────────────────────────┘                               └────────────────────────────────────────────────────────┘
+                                │                                                                                         │
+                                └────────────────────────────────────────────┬────────────────────────────────────────────┘
+                                                                             ▼
+                                ┌─────────────────────────────────────────────────────────────────────────────────────────┐
+                                │                    6. ACTIONABLE GOVERNANCE & DECISION SUPPORT MATRIX                   │
+                                │ • 5 Statistical Insights (INS-001 ──► INS-005) rigorously validated against SSOT       │
+                                │ • 3 Action Levels: Descriptive (L1) ──► Operational Routing (L2) ──► Credit Policy (L3)│
+                                │ • Designated Decision Owners (Underwriting Operations, Credit Risk Committee, CRO)      │
+                                └─────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
 
 ### 2. Data Warehouse Layer & Star Schema Design
-*Kimball-standard Star Schema strictly enforcing the analytical grain contract: **1 Row = 1 Application = 1 Customer = 1 Target (307,511 SSOT Grain)**.*
-![CCIP Star Schema](docs/architecture/ccip_star_schema.png)
+*Kimball-standard dimensional model enforcing the analytical grain contract: **1 Row = 1 Application = 1 Customer = 1 Target (307,511 SSOT Grain)**.*
+
+```text
+                                  ┌───────────────────────────────┐
+                                  │   dw.dim_customer (Dimension) │
+                                  ├───────────────────────────────┤
+                                  │ • PK customer_sk              │
+                                  │ • age_years, gender, income   │
+                                  │ • ext_score_avg, overdue_days │
+                                  │ • total & active bureau loans │
+                                  └───────────────┬───────────────┘
+                                                  │
+                                                  │
+┌───────────────────────────────┐                 │                 ┌───────────────────────────────┐
+│    dw.dim_region (Dimension)  │                 ▼                 │     dw.dim_time (Dimension)   │
+├───────────────────────────────┤ ────────► ┌───────────┐ ◄──────── ├───────────────────────────────┤
+│ • PK region_sk                │           │   CORE    │           │ • PK time_sk                  │
+│ • region_population_relative  │           │   FACT    │           │ • application_date, year      │
+│ • region_rating_client        │           │           │           │ • month, quarter, day_of_week │
+│ • region_risk_tier (Tier 1-3) │           └─────┬─────┘           │ • is_weekend_flag             │
+└───────────────────────────────┘                 │                 └───────────────┬───────────────┘
+                                                  ▼                                 │
+                                  ┌───────────────────────────────┐                 │
+                                  │    dw.fact_loan (Core Fact)   │                 │
+                                  ├───────────────────────────────┤                 │
+                                  │ • PK loan_sk                  │                 │
+                                  │ • FK customer_sk, region_sk   │                 │
+                                  │ • FK time_sk                  │                 │
+                                  │ • loan_amt, annuity_amt, LTV  │                 │
+                                  │ • income_to_annuity_ratio     │                 │
+                                  │ • is_default (Target: 0 / 1)  │                 │
+                                  └───────────────┬───────────────┘                 │
+                                                  │ (Context Link)                  │
+                                                  ▼                                 │
+                                  ┌───────────────────────────────┐                 │
+                                  │ dw.fact_economy (Context Fact)│                 │
+                                  ├───────────────────────────────┤                 │
+                                  │ • PK economy_sk               │                 │
+                                  │ • FK time_sk ─────────────────┴─────────────────┘
+                                  │ • gdp_growth_rate, cpi_inflation, unemployment  │
+                                  └───────────────────────────────┘
+```
 
 - **Fact Tables:**
   - `dw.fact_loan`: 307,511 loan records with exposure, annuity, goods price, LTV, and payment affordability ratios.
