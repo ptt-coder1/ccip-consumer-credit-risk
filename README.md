@@ -128,11 +128,24 @@ ccip-consumer-credit-risk/
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - Python 3.10 or higher
 
-### 1. Clone the Repository & Setup Environment
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/ccip-consumer-credit-risk.git
+git clone https://github.com/ptt-coder1/ccip-consumer-credit-risk.git
 cd ccip-consumer-credit-risk
+```
 
+### 2. Option A: Run via Docker (Recommended for Reproducibility)
+Build and run the containerized Python/ML environment with a single command:
+```bash
+# Build the Docker image
+docker build -t ccip-ml-env .
+
+# Run Jupyter Notebook container (accessible at http://localhost:8888)
+docker run -it -p 8888:8888 -v ${PWD}:/app ccip-ml-env
+```
+
+### 3. Option B: Run Locally (Virtual Environment)
+```bash
 python -m venv .venv
 # On Windows:
 .venv\Scripts\activate
@@ -142,21 +155,18 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Start PostgreSQL Warehouse
+### 4. Start PostgreSQL Warehouse & Run Pipeline
 ```bash
 cp .env.example .env
 docker compose up -d
-```
 
-### 3. Run the End-to-End Pipeline
-```bash
 # Execute DWH transformations and export the ML dataset
 python run_pipeline.py
 python analysis/export_ml_dataset.py
 ```
 
-### 4. Run Machine Learning & Explainability
-Open and run `analysis/02_python_analysis.ipynb` locally or via Google Colab to train the models and generate SHAP values.
+### 5. Run Machine Learning & Explainability
+Open and run `analysis/02_python_analysis.ipynb` locally, inside the Docker container, or via Google Colab to reproduce models and SHAP explanations on `data/sample_ccip_data.parquet` or the full DWH dataset.
 
 ---
 
