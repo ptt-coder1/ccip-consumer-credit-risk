@@ -1,5 +1,10 @@
 # Consumer Credit Intelligence Platform (CCIP)
-## End-to-End Enterprise Credit Risk Intelligence: ELT Data Warehouse, Executive BI & Interpretable Machine Learning
+### End-to-End Credit Risk Analytics | Data Engineering | Executive BI | Interpretable Machine Learning
+
+An enterprise-grade, end-to-end analytics platform transforming **58.5M+ raw records** into a **PostgreSQL Star Schema Data Warehouse**, an interactive **4-Page Executive Power BI Storyboard**, and an interpretable **LightGBM risk-ranking model**.
+
+**Scale:** `307,511` loan applications | `184.2B CU` portfolio exposure | `8.07%` portfolio default rate  
+**Stack:** `PostgreSQL 16` · `SQL (ELT)` · `Python 3.11` · `Power BI (DAX / TMDL)` · `LightGBM` · `SHAP` · `Docker`
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
@@ -10,11 +15,24 @@
 
 ---
 
+## 🔎 At a Glance
+
+| Functional Domain | Key Implementation & Deliverable | Technical Stack & Artifacts |
+| :--- | :--- | :--- |
+| **Data Engineering** | Scalable ELT ingestion pipeline from 58.5M raw records | Python, `psycopg2 COPY`, Streaming Ingestion |
+| **Data Warehouse (DWH)** | 3-tier architecture (`RAW` $\rightarrow$ `STAGING` $\rightarrow$ `DW`), Kimball Star Schema (307.5k grain SSOT) | PostgreSQL 16, SQL Views & Tables, Constraints |
+| **Executive BI** | 4-Page Storyboard (Overview, Segments, Hotspots, Demographics) | Power BI Desktop, Centralized DAX, TMDL |
+| **Statistical Risk Analytics** | Monotonic risk gradient (Q1–Q4) & multivariate $4 \times 4$ Hotspot Matrix | Pearson Correlation, Fixed Operational Cut-offs |
+| **Predictive Modeling** | Non-linear risk ranking evaluated on strict holdout test set | LightGBM vs Logistic Regression (ROC-AUC 0.7636, AP 0.2535) |
+| **Explainability (XAI)** | Game-theoretic global feature attribution (Top: `ext_score_avg`, `LTV`) | SHAP (TreeExplainer), 5,000 holdout test samples |
+| **Actionable Governance** | 5 core insights mapped to 3 decision tiers (Descriptive, Operational, Policy) | Formal Matrix with designated Decision Owners |
+| **Reproducibility** | Containerized ML environment & anonymized sample dataset | Docker (`Dockerfile`, `.dockerignore`), Parquet |
+
+---
+
 ## 📌 Executive Summary
 
-**Consumer Credit Intelligence Platform (CCIP)** is an enterprise-grade credit risk analytics and intelligence platform built on **307,511 loan applications** (~184.2 Billion Currency Units total exposure). 
-
-CCIP bridges the critical gap between raw transactional systems, executive decision-making, and predictive data science by implementing a strict **Single Source of Truth (SSOT)**:
+**Consumer Credit Intelligence Platform (CCIP)** bridges the critical gap between raw transactional systems, executive decision-making, and predictive data science by implementing a strict **Single Source of Truth (SSOT)**:
 $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longrightarrow \text{Executive Power BI Storyboard} \longrightarrow \text{ML Risk Ranking (LightGBM + SHAP)} \longrightarrow \text{Actionable Governance}$$
 
 ```
@@ -39,7 +57,7 @@ $$\text{Raw Multi-Table Ingestion} \longrightarrow \text{Star Schema DWH} \longr
 | Category | Finding & Metric | Business & Strategic Impact |
 | :--- | :--- | :--- |
 | **Portfolio Baseline** | **8.07%** Default Rate (`24,825` defaults / `307,511` loans) | **184.2B CU** total portfolio exposure; **~13.8B CU** total amount at risk (`13,846,851,950 CU`). |
-| **Monotonic Risk Gradient** | **Q1 (2.69%) $\longrightarrow$ Q4 (18.60%)** | Q4 default rate is **6.91× higher (≈6.93x)** than Q1; Q4 accounts for **46.9%** of all portfolio defaults (`11,653 / 24,825`). Pearson $r = -0.2229$. |
+| **Operational Risk Segmentation** | **Q1 (2.69%) $\longrightarrow$ Q4 (18.60%)** | Q4 default rate is **6.91× higher (≈6.93x)** than Q1; Q4 accounts for **46.9%** of all portfolio defaults (`11,653 / 24,825`). Pearson $r = -0.2229$. *(Exploratory SQL NTILE baseline: 2.71% $\rightarrow$ 17.28%).* |
 | **Critical Risk Hotspot** | **Q4 × T1 Hotspot = 19.90% Default Rate** | **16,158 applications** ($5.25\%$ of portfolio) with **2.10B CU exposure at risk** (`2,096,007,278 CU`). Default rate is **2.47×** the portfolio baseline. |
 | **ML Predictive Lift** | **ROC-AUC = 0.7636 \| Average Precision (AP) = 0.2535** | $+1.10\text{ pp}$ ROC-AUC and $+1.62\text{ pp}$ AP over Logistic Regression baseline. AP is **3.14×** random baseline prevalence. |
 | **SQL $\leftrightarrow$ ML Consistency** | **Holdout Test Set Hotspot = 19.90%** (Gap: **0.00 pp**) | Confirms structural model robustness and aligns predictive risk ranking scores (Mean: **67.48**) with DWH descriptive metrics. |
